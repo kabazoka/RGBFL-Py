@@ -170,6 +170,7 @@ def apply_lut_section(args):
         for x in range(width):
             b, g, r = image_section[y, x]
             closest_index = get_lut_index_with_min_delta_e(b, g, r, lut)
+            print(f"Closest index: {closest_index}")
             b_translated = (closest_index // (16*16)) * 16
             g_translated = (closest_index % (16*16)) // 16 * 16
             r_translated = (closest_index % (16*16) % 16) * 16
@@ -183,6 +184,7 @@ def main(image_filename, lut, output_filename):
 
     num_processes = cpu_count()
     pool = Pool(processes=num_processes)
+    logging.info(f"Using {num_processes} processes")
 
     step = height // num_processes
     tasks = [(i, min(i + step, height), width, image, lut) for i in range(0, height, step)]
@@ -196,10 +198,10 @@ def main(image_filename, lut, output_filename):
 
 
 if __name__ == "__main__":
-    image_filename = 'python/input/out_kodim22_ds.png'
-    output_img_filename = 'python/output/out_kodim22_ds-GM.png'
-    # lut_filename = 'python/input/out_gmlut_name.txt'
-    downsample_lut_filename = 'python/input/downsampled.txt'
+    image_filename = 'input/image/out_kodim22_ds.png'
+    output_img_filename = 'output/image/out_kodim22_ds-GM.png'
+    # lut_filename = 'input/out_gmlut_name.txt'
+    downsample_lut_filename = 'input/LUT/kodim22_4096.txt'
 
     # downsampled_lut = downsample_lut(read_lut_from_file(lut_filename))
     # write_lut_to_file(downsampled_lut, downsample_lut_filename)

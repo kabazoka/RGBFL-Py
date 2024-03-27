@@ -87,11 +87,11 @@ def RTBDBS(fm, gm, sigma, size, imax):
     rows, cols = fm.shape
 
     sig = 18
-    seq1616 = np.load("python/input/Seq16x16.npy")
+    seq1616 = np.load("input/Seq16x16.npy")
     # seq1818 = np.load("Input/Seq18x18.npy")
     # seq1820 = np.load("Input/data1.npy")
     # seq2018 = np.load("Input/data1.npy")
-    seq2020 = np.load("python/input/Seq20x20.npy")
+    seq2020 = np.load("input/Seq20x20.npy")
 
     gs = (size + 1)//2
     length = (gs - 1)//2
@@ -234,7 +234,7 @@ def RTBCDBS_20x20(fm, gm, pcs, sigma, size, imax):
     # seq1818 = np.load("Input/Seq18x18.npy")
     # seq1820 = np.load("Input/Seq18x20.npy")
     # seq2018 = np.load("Input/Seq20x18.npy")
-    seq2020 = np.load("python/input/Seq20x20.npy")
+    seq2020 = np.load("input/Seq20x20.npy")
 
     # Pad
     p = 2
@@ -381,7 +381,7 @@ def RTBDBS_CFA(fm, gm, step, sigma, size, imax):
         gmp[:, :, cl] = np.pad(gm[:, :, cl], (p, p), 'symmetric')
         CFA_fmp[:, :, cl] = np.pad(CFA_fm[:, :, cl], (p, p), 'symmetric')
         
-    seq2020 = np.load("python/input/Seq20x20.npy")
+    seq2020 = np.load("input/Seq20x20.npy")
     gs = (size + 1)//2
     length = (gs - 1)//2
     Gf = np.zeros((gs, gs))
@@ -445,7 +445,7 @@ if __name__ == "__main__":
     ]
 
     ## Input
-    folder = "python/input/FL_test/"
+    folder = "input/CFA/"
     list = os.listdir(folder)
     for M in range(len(list)):
         inputPath = os.path.join(folder, list[M])
@@ -483,7 +483,7 @@ if __name__ == "__main__":
 
         ## Output
         img.show()
-        img.save(f"python/output/{name}-HT.bmp")
+        img.save(f"output/CFA/{name}-HT.bmp")
         # CFA_img.show()
         # CFA_img.save('Color_Checker.png')
 
