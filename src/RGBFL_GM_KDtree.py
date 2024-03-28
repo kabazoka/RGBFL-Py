@@ -6,6 +6,7 @@ from colormath.color_objects import sRGBColor, LabColor
 from colormath.color_conversions import convert_color
 from colormath.color_diff import delta_e_cie2000
 
+
 class Node:
     def __init__(self, point=None, index=None, left=None, right=None):
         self.point = point
@@ -36,33 +37,44 @@ class KDTree:
         indexed_points = [(point, i) for i, point in enumerate(points)]
         self.root = self.build_tree(indexed_points)
 
+i = 0
+    
+
 def find_nearest(node, target, depth=0, best=None):
+
+    # global i
+    # i += 1
+    # print(f"Depth: {depth}")
+    # print(f"i: {i}")
     if node is None:
         return best
-    
+
     k = len(target)
     axis = depth % k
+    next_best = None
+    opposite_branch = None
 
-    if best is None or colour.delta_E(target, best.point) > colour.delta_E(target, node.point):
-        next_best = node
-    else:
-        next_best = best
-    
+    # Determine closer side
     if target[axis] < node.point[axis]:
-        next_branch = find_nearest(node.left, target, depth + 1, next_best)
-        if next_branch is not None:
-            next_best = next_branch
-        next_branch = find_nearest(node.right, target, depth + 1, next_best)
+        next_node = node.left
+        opposite_branch = node.right
     else:
-        next_branch = find_nearest(node.right, target, depth + 1, next_best)
-        if next_branch is not None:
-            next_best = next_branch
-        next_branch = find_nearest(node.left, target, depth + 1, next_best)
-    
-    if next_branch is not None and colour.delta_E(target, next_branch.point) < colour.delta_E(target, next_best.point):
-        next_best = next_branch
+        next_node = node.right
+        opposite_branch = node.left
+
+    # Explore the side closer to the target first
+    next_best = find_nearest(next_node, target, depth + 1, best)
+
+    # Now, check if we need to explore the other side
+    if next_best is None or colour.delta_E(target, next_best.point) > abs(target[axis] - node.point[axis]):
+        next_best = find_nearest(opposite_branch, target, depth + 1, next_best or best)
+
+    # Update the best node if the current node is closer to the target
+    if next_best is None or colour.delta_E(target, next_best.point) > colour.delta_E(target, node.point):
+        next_best = node
 
     return next_best
+
 
 def nearest_neighbor(kd_tree, target):
     node = find_nearest(kd_tree.root, target)
@@ -202,35 +214,6 @@ def write_lut_to_file(lut, filename):
             file.write(f"{rgb[0]} {rgb[1]} {rgb[2]}\n")
 
 
-def get_lut_index_with_min_delta_e(target_b, target_g, target_r, lut):
-    """Find the index of the LUT entry with the minimum Delta E from the target BGR."""
-    min_delta_e = float('inf')
-    closest_index = -1
-    target_bgr = (target_b, target_g, target_r)
-    target_lab = bgr_to_lab_colour_science(target_bgr)
-
-    for index in range(len(lut)):
-        i += 1
-        
-        lab = lut[index]
-
-        LAB_target = (target_lab[0], target_lab[1], target_lab[2])
-        LAB_in_LUT = (lab[0], lab[1], lab[2])
-        # print(f"LAB_target: {LAB_target}, LAB_in_LUT: {LAB_in_LUT}")
-        current_delta_e = colour.delta_E(LAB_target, LAB_in_LUT, method='CIE 2000')
-        if current_delta_e < min_delta_e:
-            min_delta_e = current_delta_e
-            closest_index = index
-
-    target_bgr = (target_b, target_g, target_r)
-    lut_lab = lut[closest_index]
-
-    # print(f"Target BGR: {target_bgr}, Target lab: {target_lab}, LUT Lab: {lut_lab}")
-    # print(f"Min Delta E: {min_delta_e}")
-    # print(f"Total iterations: {i}")
-
-
-    return closest_index
 
 
 def main(image_filename, output_img_filename):
@@ -239,7 +222,7 @@ def main(image_filename, output_img_filename):
     image = cv2.imread(image_filename, cv2.IMREAD_COLOR)
     height, width = image.shape[:2]
 
-    lut_points = load_lut('python/output/downsampled_Lab.txt')  # Load the LUT
+    lut_points = load_lut('input/LUT/downsampled_Lab.txt')  # Load the LUT
     kd_tree = KDTree()
     kd_tree.construct_tree(lut_points)
 
@@ -250,7 +233,7 @@ def main(image_filename, output_img_filename):
 
             # print(f"Pixel ({x}, {y}): ({b}, {g}, {r}) -> ({pixel_lab[0]}, {pixel_lab[1]}, {pixel_lab[2]})")
             index, closest_color = nearest_neighbor(kd_tree, pixel_lab)
-
+            
             # print(f"Closest index: {index}")
             # Correctly translate the index back into RGB values
             b_translated = (index // (16*16)) * 16
@@ -267,9 +250,9 @@ def main(image_filename, output_img_filename):
     cv2.imwrite(output_img_filename, image)
 
 # Example usage
-image_filename = 'python/input/out_kodim22_ds2.png'
-output_img_filename = 'python/output/kodim22_ds2-GM.png'
-downsample_lut_filename = 'python/output/downsampled_Lab.txt'
+image_filename = 'input/image/out_kodim22.png'
+output_img_filename = 'output/out_kodim22-GM-kd.jpg'
+downsample_lut_filename = 'input/LUT/downsampled_Lab.txt'
 
 # lut = read_lut_from_file(lut_filename)
 # downsample_lut = downsample_lut(lut)

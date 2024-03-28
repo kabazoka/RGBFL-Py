@@ -350,19 +350,23 @@ def RTBDBS_CFA(fm, gm, step, sigma, size, imax):
 
     # CFA Pattern
     CFA = np.zeros((rows, cols))
-    # period = [2, 2, 0, 0, 1, 1]
-    # for i in range(rows):
-    #     if i%2 == 0:
-    #         CFA[i, 0] = 1
-    #         for j in range(1, cols):
-    #             CFA[i, j] = period[(j-1)%6]
-    #     else:
-    #         for j in range(cols):
-    #             CFA[i, j] = period[(j+2)%6]
+    period = [2, 2, 0, 0, 1, 1]
 
+    # old pattern
     for i in range(rows):
-        for j in range(cols):
-            CFA[i, j] = (i+j+1)%3
+        if i%2 == 0:
+            CFA[i, 0] = 1
+            for j in range(1, cols):
+                CFA[i, j] = period[(j-1)%6]
+        else:
+            for j in range(cols):
+                CFA[i, j] = period[(j+2)%6]
+
+
+    # new pattern:
+    # for i in range(rows):
+    #     for j in range(cols):
+    #         CFA[i, j] = (i+j+1)%3
 
     # CFA Fm
     CFA_fm = np.zeros((rows, cols, chls))
