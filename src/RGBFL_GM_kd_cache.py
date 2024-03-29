@@ -6,6 +6,94 @@ import multiprocessing
 from multiprocessing import Pool, cpu_count, Manager
 import logging
 
+
+class Node:
+    def __init__(self, point=None, index=None, left=None, right=None):
+        self.point = point
+        self.index = index
+        self.left = left
+        self.right = right
+class KDTree:
+    def build_tree(self, points, depth=0):
+        if not points:
+            return None
+        
+        # Assuming points as [(color, index)]
+        k = len(points[0][0])  # Correctly access the dimensions of the color
+        axis = depth % k
+
+        points.sort(key=lambda x: x[0][axis])
+        median = len(points) // 2
+
+        return Node(
+            point=points[median][0],
+            index=points[median][1],
+            left=self.build_tree(points[:median], depth + 1),
+            right=self.build_tree(points[median+1:], depth + 1)
+        )
+    
+    def construct_tree(self, points):
+        # Adjusting to pass points as [(color, index)]
+        indexed_points = [(point, i) for i, point in enumerate(points)]
+        self.root = self.build_tree(indexed_points)
+
+i = 0
+    
+
+def find_nearest(node, target, depth=0, best=None):
+
+    # global i
+    # i += 1
+    # print(f"Depth: {depth}")
+    # print(f"i: {i}")
+    if node is None:
+        return best
+
+    k = len(target)
+    axis = depth % k
+    next_best = None
+    opposite_branch = None
+
+    # Determine closer side
+    if target[axis] < node.point[axis]:
+        next_node = node.left
+        opposite_branch = node.right
+    else:
+        next_node = node.right
+        opposite_branch = node.left
+
+    # Explore the side closer to the target first
+    next_best = find_nearest(next_node, target, depth + 1, best)
+
+    # Now, check if we need to explore the other side
+    if next_best is None or colour.delta_E(target, next_best.point) > abs(target[axis] - node.point[axis]):
+        next_best = find_nearest(opposite_branch, target, depth + 1, next_best or best)
+
+    # Update the best node if the current node is closer to the target
+    if next_best is None or colour.delta_E(target, next_best.point) > colour.delta_E(target, node.point):
+        next_best = node
+
+    return next_best
+
+cache = {}  # Key: Quantized Color, Value: Index in the LUT
+
+def get_nearest_color_with_cache(bgr_color, kd_tree, cache):
+    quantized_color = quantize_color(bgr_color)
+    if quantized_color in cache:
+        return cache[quantized_color]
+    else:
+        # Convert BGR to LAB for nearest neighbor search
+        lab_color = bgr_to_lab_colour_science(bgr_color)
+        nearest_color = kd_tree.find_nearest(lab_color)  # Assuming a method to find nearest
+        cache[quantized_color] = nearest_color
+        return nearest_color
+
+# Load your LUT from the file
+def load_lut(filename):
+    with open(filename, 'r') as file:
+        points = [tuple(map(float, line.strip().split())) for line in file]
+    return points
+
 def RGB_to_XYZ_Colour_Science(RGB):
     # Convert the RGB values to XYZ values
     XYZ = colour.RGB_to_XYZ(RGB, "sRGB", None, "CAT02")

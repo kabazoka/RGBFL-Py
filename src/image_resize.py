@@ -13,9 +13,9 @@ def resize_image(input_path, output_path, new_width, new_height):
 # Desired dimensions
 new_width = 1872
 new_height = 1404
-input_image_path = 'output/out_kodim22-GM-kd.jpg'
+input_image_path = 'input/image/Kodim16.png'
 
-output_image_path = 'output/CFA/out_kodim22-GM-kd-resized.png'
+output_image_path = 'output/image/Kodim16-resized.png'
 
 # Resize the image
 resize_image(input_image_path, output_image_path, new_width, new_height)
