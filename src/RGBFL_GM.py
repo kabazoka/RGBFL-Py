@@ -43,10 +43,9 @@ def calculate_nearest_for_color(args):
     color, kd_tree = args
     pixel_lab = BGR_to_LAB(color)
     index, _ = nearest_neighbor(kd_tree, pixel_lab)
-    index -= 12481
-    b_translated = (index // (64*64)) * 4
-    g_translated = ((index % (64*64)) // 64) * 4
-    r_translated = (index % 64) * 4
+    b_translated = min(max(((index // (65*65)) * 4) - 1, 0), 255)
+    g_translated = min(max((((index % (65*65)) // 65) * 4) - 1, 0), 255)
+    r_translated = min(max(((index % 65) * 4) - 1, 0), 255)
     return color, (b_translated, g_translated, r_translated)
 
 def find_nearest(node, target, depth=0, best=None):
