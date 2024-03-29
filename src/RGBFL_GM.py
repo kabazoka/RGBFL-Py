@@ -46,6 +46,10 @@ def calculate_nearest_for_color(args):
     b_translated = min(max(((index // (65*65)) * 4) - 1, 0), 255)
     g_translated = min(max((((index % (65*65)) // 65) * 4) - 1, 0), 255)
     r_translated = min(max(((index % 65) * 4) - 1, 0), 255)
+    if color == (53, 68, 70) or color == (54, 70, 72):
+        print(f"Color: {color}, LAB: {pixel_lab}")
+        print(f"Index: {index}")
+        print(f"Translated Color: ({ b_translated }, { g_translated }, { r_translated })")
     return color, (b_translated, g_translated, r_translated)
 
 def find_nearest(node, target, depth=0, best=None):
@@ -69,7 +73,7 @@ def find_nearest(node, target, depth=0, best=None):
     next_best = find_nearest(next_node, target, depth + 1, best)
 
     # Now, check if we need to explore the other side
-    if next_best is None or colour.delta_E(target, next_best.point) > abs(target[axis] - node.point[axis]):
+    if next_best is None or colour.delta_E(target, next_best.point, 'CIE 1976') > abs(target[axis] - node.point[axis]):
         next_best = find_nearest(opposite_branch, target, depth + 1, next_best or best)
 
     # Update the best node if the current node is closer to the target
@@ -85,7 +89,7 @@ def nearest_neighbor(kd_tree, target):
 # Utility functions
 def RGB_to_XYZ(RGB):
     # Convert the RGB values to XYZ values
-    XYZ = colour.RGB_to_XYZ(RGB, "sRGB", None, "CAT02")
+    XYZ = colour.RGB_to_XYZ(RGB, "sRGB", None, None)
     x, y, z = XYZ
     XYZ = (x / 10, y / 10, z / 10)
 
@@ -125,10 +129,13 @@ def apply_lut_with_cache(image, cache):
         for x in range(width):
             color = tuple(image[y, x])
             image[y, x] = cache[color]
+            if y == 0 and x == 38:
+                logging.info(f"Color: {color}, Translated Color: {cache[color]}")
 
 def update_cache_with_multiprocessing(unique_colors, kd_tree):
     cache = {}
     with Pool(processes=multiprocessing.cpu_count()) as pool:
+        logging.info(f"Number of processes: {multiprocessing.cpu_count()}")
         results = pool.map(calculate_nearest_for_color, [(color, kd_tree) for color in unique_colors])
     for color, translated_color in results:
         cache[color] = translated_color
