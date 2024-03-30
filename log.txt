@@ -6,3 +6,299 @@
 2024-03-29 20:42:56,565 - INFO - Applying LUT to image using cache...
 2024-03-29 20:42:56,569 - INFO - Color: (53, 68, 70), Translated Color: (211, 35, 11)
 2024-03-29 20:42:56,884 - INFO - Done applying LUT to image.
+2024-03-30 14:12:36,262 - INFO - Processing image: python/input/Kodim23.png
+2024-03-30 14:12:36,262 - INFO - Excel file: python/input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:12:36,263 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:13:07,068 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:13:07,068 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:13:07,068 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:13:07,493 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:13:20,546 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:13:46,944 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:13:46,944 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:13:46,945 - INFO - Predicted primaries(Lab):
+2024-03-30 14:13:46,945 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:13:46,945 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:13:46,945 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:13:46,945 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:13:46,945 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:13:46,945 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:13:46,945 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:13:46,945 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:13:47,107 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:20:20,081 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:20:20,081 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:20:20,081 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:20:20,395 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:20:33,286 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:20:59,851 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:20:59,851 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:20:59,852 - INFO - Predicted primaries(Lab):
+2024-03-30 14:20:59,852 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:20:59,852 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:20:59,852 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:20:59,852 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:20:59,852 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:20:59,852 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:20:59,852 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:20:59,852 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:21:00,025 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:21:38,543 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:21:38,543 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:21:38,543 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:21:38,856 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:21:51,571 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:22:17,917 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:22:17,917 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:22:17,918 - INFO - Predicted primaries(Lab):
+2024-03-30 14:22:17,918 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:22:17,918 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:22:17,918 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:22:17,918 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:22:17,918 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:22:17,918 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:22:17,918 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:22:17,918 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:22:18,081 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:23:41,846 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:23:41,847 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:23:41,847 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:23:42,161 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:23:55,485 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:24:22,889 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:24:22,889 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:24:22,890 - INFO - Predicted primaries(Lab):
+2024-03-30 14:24:22,890 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:24:22,890 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:24:22,890 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:24:22,890 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:24:22,890 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:24:22,890 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:24:22,890 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:24:22,890 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:24:23,052 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:27:26,093 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:27:26,093 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:27:26,093 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:27:26,413 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:27:31,903 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:27:59,988 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:27:59,989 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:27:59,990 - INFO - Predicted primaries(Lab):
+2024-03-30 14:27:59,990 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:27:59,990 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:27:59,990 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:27:59,990 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:27:59,990 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:27:59,990 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:27:59,990 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:27:59,990 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:28:00,054 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:32:01,099 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:32:01,099 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:32:01,100 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:32:01,402 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:32:01,478 - INFO - Generating all possible predicted colors
+2024-03-30 14:32:07,109 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:32:18,389 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:32:18,390 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:32:18,390 - INFO - Predicted primaries(Lab):
+2024-03-30 14:32:18,390 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:32:18,390 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:32:18,390 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:32:18,391 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:32:18,391 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:32:18,391 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:32:18,391 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:32:18,391 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:32:18,449 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:41:15,277 - INFO - Processing image: input/image/Kodim16.png
+2024-03-30 14:41:15,277 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:41:15,277 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:41:15,590 - INFO - Mean L: 43.769351959228516, Mean a: -3.452587842941284, Mean b: 5.908508777618408
+2024-03-30 14:41:15,667 - INFO - Generating all possible predicted colors
+2024-03-30 14:41:21,176 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:41:33,356 - INFO - [('(255, 185, 65)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:41:33,356 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:41:33,357 - INFO - Predicted primaries(Lab):
+2024-03-30 14:41:33,357 - INFO - red: L: 20.21527209667819, a: 6.37420068553557, b: 1.1016930528541913
+2024-03-30 14:41:33,357 - INFO - green: L: 22.21505922410487, a: -10.327907631304978, b: 2.680461914616228
+2024-03-30 14:41:33,358 - INFO - blue: L: 20.330030708388968, a: -5.196315879987118, b: -5.331024113113703
+2024-03-30 14:41:33,358 - INFO - cyan: L: 36.08361469741811, a: -13.074118816466418, b: 0.5495398928906714
+2024-03-30 14:41:33,358 - INFO - magenta: L: 33.72815036560483, a: 1.0108816937468568, b: -1.107468940445533
+2024-03-30 14:41:33,358 - INFO - yellow: L: 34.60719256187341, a: -1.9654046465180652, b: 6.059000339855047
+2024-03-30 14:41:33,358 - INFO - white: L: 44.18988924402538, a: -2.950034118606115, b: 5.729977651315632
+2024-03-30 14:41:33,358 - INFO - black: L: 14.992737079020188, a: -2.9737203430426904, b: -4.888452219244888
+2024-03-30 14:41:33,420 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:42:16,800 - INFO - Processing image: input/image/Kodim16.png
+2024-03-30 14:42:16,800 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:42:16,800 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:42:17,110 - INFO - Mean L: 43.769351959228516, Mean a: -3.452587842941284, Mean b: 5.908508777618408
+2024-03-30 14:42:17,188 - INFO - Generating all possible predicted colors
+2024-03-30 14:42:22,831 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:42:34,215 - INFO - [('(255, 185, 65)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:42:34,216 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:42:34,217 - INFO - Predicted primaries(Lab):
+2024-03-30 14:42:34,217 - INFO - red: L: 20.21527209667819, a: 6.37420068553557, b: 1.1016930528541913
+2024-03-30 14:42:34,217 - INFO - green: L: 22.21505922410487, a: -10.327907631304978, b: 2.680461914616228
+2024-03-30 14:42:34,217 - INFO - blue: L: 20.330030708388968, a: -5.196315879987118, b: -5.331024113113703
+2024-03-30 14:42:34,217 - INFO - cyan: L: 36.08361469741811, a: -13.074118816466418, b: 0.5495398928906714
+2024-03-30 14:42:34,217 - INFO - magenta: L: 33.72815036560483, a: 1.0108816937468568, b: -1.107468940445533
+2024-03-30 14:42:34,217 - INFO - yellow: L: 34.60719256187341, a: -1.9654046465180652, b: 6.059000339855047
+2024-03-30 14:42:34,217 - INFO - white: L: 44.18988924402538, a: -2.950034118606115, b: 5.729977651315632
+2024-03-30 14:42:34,217 - INFO - black: L: 14.992737079020188, a: -2.9737203430426904, b: -4.888452219244888
+2024-03-30 14:42:34,275 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:44:02,140 - INFO - Processing image: input/image/Kodim16.png
+2024-03-30 14:44:02,140 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:44:02,140 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:44:02,471 - INFO - Mean L: 43.769351959228516, Mean a: -3.452587842941284, Mean b: 5.908508777618408
+2024-03-30 14:44:02,554 - INFO - Generating all possible predicted colors
+2024-03-30 14:44:08,152 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:44:19,538 - INFO - [('(255, 185, 65)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:44:19,538 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:44:19,539 - INFO - Predicted primaries(Lab):
+2024-03-30 14:44:19,539 - INFO - red: L: 20.21527209667819, a: 6.37420068553557, b: 1.1016930528541913
+2024-03-30 14:44:19,539 - INFO - green: L: 22.21505922410487, a: -10.327907631304978, b: 2.680461914616228
+2024-03-30 14:44:19,540 - INFO - blue: L: 20.330030708388968, a: -5.196315879987118, b: -5.331024113113703
+2024-03-30 14:44:19,540 - INFO - cyan: L: 36.08361469741811, a: -13.074118816466418, b: 0.5495398928906714
+2024-03-30 14:44:19,540 - INFO - magenta: L: 33.72815036560483, a: 1.0108816937468568, b: -1.107468940445533
+2024-03-30 14:44:19,540 - INFO - yellow: L: 34.60719256187341, a: -1.9654046465180652, b: 6.059000339855047
+2024-03-30 14:44:19,540 - INFO - white: L: 44.18988924402538, a: -2.950034118606115, b: 5.729977651315632
+2024-03-30 14:44:19,540 - INFO - black: L: 14.992737079020188, a: -2.9737203430426904, b: -4.888452219244888
+2024-03-30 14:44:19,598 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:44:28,354 - INFO - Processing image: input/image/Kodim07.png
+2024-03-30 14:44:28,354 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:44:28,354 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:44:28,683 - INFO - Mean L: 46.43922424316406, Mean a: -1.3478697538375854, Mean b: 15.33690357208252
+2024-03-30 14:44:28,762 - INFO - Generating all possible predicted colors
+2024-03-30 14:44:34,744 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:44:45,278 - INFO - [('(255, 165, 45)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:44:45,278 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:44:45,279 - INFO - Predicted primaries(Lab):
+2024-03-30 14:44:45,279 - INFO - red: L: 19.504899871782477, a: 7.028737389525058, b: 6.444782360751411
+2024-03-30 14:44:45,279 - INFO - green: L: 21.311192874182616, a: -9.79366124588027, b: 7.77801635730323
+2024-03-30 14:44:45,279 - INFO - blue: L: 19.397750113833297, a: -5.560780258986986, b: 0.4028127074055754
+2024-03-30 14:44:45,279 - INFO - cyan: L: 34.78449092733976, a: -12.567511502080603, b: 7.79904746205694
+2024-03-30 14:44:45,280 - INFO - magenta: L: 32.6893180511551, a: 1.5860121524547688, b: 6.401903621262129
+2024-03-30 14:44:45,280 - INFO - yellow: L: 33.54284063313733, a: -0.6445363757557054, b: 12.760771624571877
+2024-03-30 14:44:45,280 - INFO - white: L: 42.93388795414622, a: -1.4654723234902023, b: 13.881890497831906
+2024-03-30 14:44:45,280 - INFO - black: L: 14.202583803251017, a: -3.3064605557616424, b: 0.010911494600718274
+2024-03-30 14:44:45,342 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:44:51,672 - INFO - Processing image: input/image/Kodim22.png
+2024-03-30 14:44:51,673 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:44:51,673 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:44:51,987 - INFO - Mean L: 47.31279373168945, Mean a: 0.09973454475402832, Mean b: 14.931353569030762
+2024-03-30 14:44:52,070 - INFO - Generating all possible predicted colors
+2024-03-30 14:44:57,824 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:45:08,536 - INFO - [('(255, 160, 45)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:45:08,536 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:45:08,537 - INFO - Predicted primaries(Lab):
+2024-03-30 14:45:08,537 - INFO - red: L: 19.371406843532597, a: 7.605723360272876, b: 6.252328772596449
+2024-03-30 14:45:08,537 - INFO - green: L: 21.13278817385781, a: -9.125629371853544, b: 7.526035355907412
+2024-03-30 14:45:08,537 - INFO - blue: L: 19.222374551918094, a: -4.914849768026697, b: 0.16324402508884894
+2024-03-30 14:45:08,537 - INFO - cyan: L: 34.53568624445032, a: -11.630780055429945, b: 7.444602993501781
+2024-03-30 14:45:08,537 - INFO - magenta: L: 32.49201873416503, a: 2.4238754324298895, b: 6.0956963288776755
+2024-03-30 14:45:08,537 - INFO - yellow: L: 33.3397843566189, a: 0.21965582391977878, b: 12.448433061909602
+2024-03-30 14:45:08,537 - INFO - white: L: 42.68347643067943, a: -0.4307922905185668, b: 13.507999743877352
+2024-03-30 14:45:08,537 - INFO - black: L: 14.073550250360292, a: -2.7565885424971626, b: -0.22536442918169586
+2024-03-30 14:45:08,604 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:45:15,109 - INFO - Processing image: input/image/Kodim23.png
+2024-03-30 14:45:15,109 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:45:15,109 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:45:15,428 - INFO - Mean L: 46.996097564697266, Mean a: 0.5725505948066711, Mean b: 20.67255973815918
+2024-03-30 14:45:15,510 - INFO - Generating all possible predicted colors
+2024-03-30 14:45:21,195 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:45:31,327 - INFO - [('(255, 155, 35)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:45:31,328 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:45:31,329 - INFO - Predicted primaries(Lab):
+2024-03-30 14:45:31,329 - INFO - red: L: 19.13879788337595, a: 7.375414288954385, b: 9.78854909490352
+2024-03-30 14:45:31,329 - INFO - green: L: 20.842356662629967, a: -9.51130620002752, b: 10.982752649919703
+2024-03-30 14:45:31,329 - INFO - blue: L: 18.91260640910886, a: -5.7626619023561645, b: 4.018271339850077
+2024-03-30 14:45:31,329 - INFO - cyan: L: 34.10923201284625, a: -12.300547532308775, b: 12.368700575518176
+2024-03-30 14:45:31,329 - INFO - magenta: L: 32.15285168630253, a: 1.8918550870717643, b: 11.105939176378431
+2024-03-30 14:45:31,329 - INFO - yellow: L: 32.993071679478895, a: 0.053445493495757335, b: 16.9582544263722
+2024-03-30 14:45:31,329 - INFO - white: L: 42.2852964260427, a: -0.681136004678895, b: 18.983374393756147
+2024-03-30 14:45:31,329 - INFO - black: L: 13.791511609059405, a: -3.489471141434011, b: 3.0941514267013916
+2024-03-30 14:45:31,398 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:53:33,669 - INFO - Processing image: input/image/kodim03.png
+2024-03-30 14:53:33,669 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:53:33,669 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:53:34,001 - INFO - Mean L: 43.44783020019531, Mean a: 1.0105961561203003, Mean b: 15.3890962600708
+2024-03-30 14:53:34,078 - INFO - Generating all possible predicted colors
+2024-03-30 14:53:39,950 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:53:51,516 - INFO - [('(255, 150, 40)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:53:51,516 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:53:51,517 - INFO - Predicted primaries(Lab):
+2024-03-30 14:53:51,518 - INFO - red: L: 19.051993617871304, a: 8.3708166445709, b: 7.657705977222995
+2024-03-30 14:53:51,518 - INFO - green: L: 20.715130352745987, a: -8.293019934923956, b: 8.802526794497744
+2024-03-30 14:53:51,518 - INFO - blue: L: 18.79941461397864, a: -4.342863309584333, b: 1.6475817946097426
+2024-03-30 14:53:51,518 - INFO - cyan: L: 33.942264908900285, a: -10.525603628183944, b: 9.267254708524009
+2024-03-30 14:53:51,518 - INFO - magenta: L: 32.02192127370454, a: 3.4388787683707065, b: 8.032832984736482
+2024-03-30 14:53:51,518 - INFO - yellow: L: 32.857097010233716, a: 1.4564178178320397, b: 14.137820746285657
+2024-03-30 14:53:51,518 - INFO - white: L: 42.102784681985504, a: 1.025141971847554, b: 15.568819985160609
+2024-03-30 14:53:51,518 - INFO - black: L: 13.735685793261329, a: -2.27662782584484, b: 1.0007118707504148
+2024-03-30 14:53:51,589 - INFO - Size of downsampled pixels: 24576
+2024-03-30 14:54:32,505 - INFO - Processing image: input/image/kodim03.png
+2024-03-30 14:54:32,505 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-03-30 14:54:32,505 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-03-30 14:54:32,805 - INFO - Mean L: 43.44783020019531, Mean a: 1.0105961561203003, Mean b: 15.3890962600708
+2024-03-30 14:54:32,880 - INFO - Generating all possible predicted colors
+2024-03-30 14:54:38,539 - INFO - Size of interpolated_FL_per_color: 7957
+2024-03-30 14:54:50,003 - INFO - [('(255, 150, 40)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-03-30 14:54:50,003 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-03-30 14:54:50,004 - INFO - Predicted primaries(Lab):
+2024-03-30 14:54:50,004 - INFO - red: L: 19.051993617871304, a: 8.3708166445709, b: 7.657705977222995
+2024-03-30 14:54:50,004 - INFO - green: L: 20.715130352745987, a: -8.293019934923956, b: 8.802526794497744
+2024-03-30 14:54:50,004 - INFO - blue: L: 18.79941461397864, a: -4.342863309584333, b: 1.6475817946097426
+2024-03-30 14:54:50,004 - INFO - cyan: L: 33.942264908900285, a: -10.525603628183944, b: 9.267254708524009
+2024-03-30 14:54:50,004 - INFO - magenta: L: 32.02192127370454, a: 3.4388787683707065, b: 8.032832984736482
+2024-03-30 14:54:50,004 - INFO - yellow: L: 32.857097010233716, a: 1.4564178178320397, b: 14.137820746285657
+2024-03-30 14:54:50,005 - INFO - white: L: 42.102784681985504, a: 1.025141971847554, b: 15.568819985160609
+2024-03-30 14:54:50,005 - INFO - black: L: 13.735685793261329, a: -2.27662782584484, b: 1.0007118707504148
+2024-03-30 14:54:50,065 - INFO - Size of downsampled pixels: 24576
+2024-03-30 15:06:48,997 - INFO - Reading LUT and converting to LAB...
+2024-03-30 15:07:04,201 - INFO - Constructing KD-Tree...
+2024-03-30 15:07:06,070 - INFO - Extracting unique colors from image...
+2024-03-30 15:07:06,373 - INFO - Constructing KD-Tree...
+2024-03-30 15:07:08,334 - INFO - Calculating nearest neighbors for unique colors and updating cache with multiprocessing...
+2024-03-30 15:07:08,396 - INFO - Number of processes: 16
+2024-03-30 15:07:36,077 - INFO - Reading LUT and converting to LAB...
+2024-03-30 15:07:51,072 - INFO - Constructing KD-Tree...
+2024-03-30 15:07:52,822 - INFO - Extracting unique colors from image...
+2024-03-30 15:07:53,096 - INFO - Constructing KD-Tree...
+2024-03-30 15:07:54,877 - INFO - Calculating nearest neighbors for unique colors and updating cache with multiprocessing...
+2024-03-30 15:07:54,951 - INFO - Number of processes: 16
+2024-03-30 15:09:18,964 - INFO - Applying LUT to image using cache...
+2024-03-30 15:09:19,383 - INFO - Done applying LUT to image.
+2024-03-30 15:10:42,281 - INFO - Reading LUT and converting to LAB...
+2024-03-30 15:10:57,736 - INFO - Constructing KD-Tree...
+2024-03-30 15:10:59,582 - INFO - Extracting unique colors from image...
+2024-03-30 15:10:59,886 - INFO - Constructing KD-Tree...
+2024-03-30 15:11:01,757 - INFO - Calculating nearest neighbors for unique colors and updating cache with multiprocessing...
+2024-03-30 15:11:01,834 - INFO - Number of processes: 16
+2024-03-30 15:12:25,041 - INFO - Applying LUT to image using cache...
+2024-03-30 15:12:25,487 - INFO - Done applying LUT to image.
+2024-03-30 15:13:22,545 - INFO - Reading LUT and converting to LAB...
+2024-03-30 15:13:37,179 - INFO - Constructing KD-Tree...
+2024-03-30 15:13:38,922 - INFO - Extracting unique colors from image...
+2024-03-30 15:13:39,214 - INFO - Constructing KD-Tree...
+2024-03-30 15:13:40,951 - INFO - Calculating nearest neighbors for unique colors and updating cache with multiprocessing...
+2024-03-30 15:13:41,024 - INFO - Number of processes: 16
+2024-03-30 15:15:17,178 - INFO - Applying LUT to image using cache...
+2024-03-30 15:15:17,605 - INFO - Done applying LUT to image.
+2024-03-30 15:54:46,141 - INFO - Reading LUT and converting to LAB...
+2024-03-30 15:55:01,059 - INFO - Constructing KD-Tree...
+2024-03-30 15:55:02,832 - INFO - Extracting unique colors from image...
+2024-03-30 15:55:03,125 - INFO - Constructing KD-Tree...
+2024-03-30 15:55:04,903 - INFO - Calculating nearest neighbors for unique colors and updating cache with multiprocessing...
+2024-03-30 15:55:04,971 - INFO - Number of processes: 16
+2024-03-30 15:56:34,517 - INFO - Applying LUT to image using cache...
+2024-03-30 15:56:34,943 - INFO - Done applying LUT to image.
+2024-03-30 15:57:24,780 - INFO - Reading LUT and converting to LAB...
+2024-03-30 15:57:39,437 - INFO - Constructing KD-Tree...
+2024-03-30 15:57:41,149 - INFO - Extracting unique colors from image...
+2024-03-30 15:57:41,428 - INFO - Constructing KD-Tree...
+2024-03-30 15:57:43,154 - INFO - Calculating nearest neighbors for unique colors and updating cache with multiprocessing...
+2024-03-30 15:57:43,230 - INFO - Number of processes: 16
+2024-03-30 15:59:06,594 - INFO - Applying LUT to image using cache...
+2024-03-30 15:59:07,016 - INFO - Done applying LUT to image.

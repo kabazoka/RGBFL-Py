@@ -46,8 +46,8 @@ new_height = 1404
 
 # Call the function with the path to your image
 
-input_image_path = 'output/CFA/out_kodim22-GM-kd-resized-HT.bmp'
-output_image_path = 'output/CFA/out_kodim22-GM-kd-resized-HT-Gray.bmp'
+input_image_path = 'output/CFA/Kodim22-resized-HT.bmp'
+output_image_path = input_image_path.replace('.bmp', '-gray.bmp')
 # input_image_path = 'output/image/out_kodim22-GM-32.png'
 # output_image_path = 'output/CFA/out_kodim22-GM-32-resized.png'
 

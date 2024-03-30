@@ -8,6 +8,9 @@ from scipy.interpolate import LinearNDInterpolator
 import logging
 from collections import Counter
 import matplotlib.pyplot as plt
+import multiprocessing
+from functools import partial
+from multiprocessing import Pool, cpu_count
 
 # Function to convert BGR to CIELab color space
 def bgr_to_lab(bgr):
@@ -212,8 +215,45 @@ def plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, pr
     plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
     plt.show()
 
+def interpolate_color_for_color(FL, tri, values):
+    return interpolate_color(tri, values, FL)
 
-def main(image_path, data_file_path):
+def compute_loss_for_FL(interpolated_FL_per_color, dominant_color, FL):
+    target_XYZ = np.array(interpolated_FL_per_color[FL])
+    target_lab = colour.XYZ_to_Lab(target_XYZ)
+    loss = colour.delta_E(dominant_color, target_lab)
+    return FL, loss
+
+def find_best_FL(all_interpolated_FL, dominant_color):
+    cpu_count = multiprocessing.cpu_count()
+    pool = Pool(cpu_count)
+
+    color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
+    tasks = []
+    for color in color_list:
+        interpolated_FL_per_color = all_interpolated_FL[color]
+        for FL in interpolated_FL_per_color.keys():
+            # Add the task for computing the loss of each FL setting
+            tasks.append((interpolated_FL_per_color, dominant_color, FL))
+
+    # Step 2: Use pool.starmap to apply the worker function across all tasks
+    results = pool.starmap(compute_loss_for_FL, tasks)
+
+    # Close the pool and wait for all tasks to complete
+    pool.close()
+    pool.join()
+
+    # Step 3: Process the results to find the FL setting with the lowest loss
+    lowest_loss = float('inf')
+    best_FL = None
+    for FL, loss in results:
+        if loss < lowest_loss:
+            lowest_loss = loss
+            best_FL = FL
+
+    return best_FL, lowest_loss
+
+def find_FL_with_mean(image_path, data_file_path):
     # Log the processing image path and the name of the excel file
     logging.info(f"Processing image: {image_path}")
     logging.info(f"Excel file: {data_file_path}")
@@ -242,17 +282,20 @@ def main(image_path, data_file_path):
 
     # Generate all possible predicted colors just once
     color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
+    # Use a pool of workers to parallelize the generation of predicted colors
+    cpu_count = multiprocessing.cpu_count()
+    pool = multiprocessing.Pool(processes=cpu_count)
+
+    logging.info("Generating all possible predicted colors")
     all_interpolated_FL = {}
-    for color in tqdm.tqdm(color_list, leave=False, desc="Predicting each colors: "):
-        interpolated_FL_per_color = {}
-        for FL_R in tqdm.tqdm(range(0, 256, 5), leave=False, desc="R: "):
-            for FL_G in tqdm.tqdm(range(0, 256, 5), leave=False, desc="G: "):
-                for FL_B in tqdm.tqdm(range(0, 256, 5), leave=False, desc="B: "):
-                    if FL_R == 255 or FL_G == 255 or FL_B == 255:
-                        interpolated_FL_per_color[(FL_R, FL_G, FL_B)] = interpolate_color(tri, measured_colors[color], (FL_R, FL_G, FL_B))
-        all_interpolated_FL[color] = interpolated_FL_per_color
+    for color in color_list:
+        FL_ranges = [(FL_R, FL_G, FL_B) for FL_R in range(0, 256, 5) for FL_G in range(0, 256, 5) for FL_B in range(0, 256, 5) if FL_R == 255 or FL_G == 255 or FL_B == 255]
+        func = partial(interpolate_color_for_color, tri=tri, values=measured_colors[color])
+        results = pool.map(func, FL_ranges)
+        all_interpolated_FL[color] = dict(zip(FL_ranges, results))
 
-
+    pool.close()
+    pool.join()
     # print('interpolated_FL_per_color: ', interpolated_FL_per_color)
     # Draw a 3d plot of the front lights combination
     # allFLs = all_interpolated_FL[color_list[0]]
@@ -271,20 +314,7 @@ def main(image_path, data_file_path):
 
     lowest_loss = int(100000)
     best_FL = 0
-    for color in tqdm.tqdm(color_list, leave=False, desc="Matching the target pixel with predicted colors: "):
-        interpolated_FL_per_color = all_interpolated_FL[color]
-        for FL_R in tqdm.tqdm(range(0, 256, 5), leave=False, desc="R: "):
-            for FL_G in tqdm.tqdm(range(0, 256, 5), leave=False, desc="G: "):
-                for FL_B in tqdm.tqdm(range(0, 256, 5), leave=False, desc="B: "):
-                    if FL_R == 255 or FL_G == 255 or FL_B == 255:
-                        target_XYZ = np.array(interpolated_FL_per_color[(FL_R, FL_G, FL_B)])
-                        target_lab = colour.XYZ_to_Lab(target_XYZ)
-                        loss = colour.delta_E(dominant_color, target_lab)
-                        if loss < lowest_loss:
-                            lowest_loss = loss
-                            best_FL = (FL_R, FL_G, FL_B)
-                            # logging.info('new lowest_loss: %s', lowest_loss)
-                            # logging.info('current best_FL: %s', best_FL)
+    best_FL, lowest_loss = find_best_FL(all_interpolated_FL, dominant_color)
     best_FL_count[str(best_FL)] += 1
 
     # Find the 10 most appeared front lights and their count of appearance
@@ -326,12 +356,24 @@ def main(image_path, data_file_path):
     logging.info(f"Size of downsampled pixels: {len(downsampled_pixels_lab)}")
 
     # Plot the image gamut in 3D
-    plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, primaries_red_FL)
+    # plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, primaries_red_FL)
+
+    # Outout the primaries under the best matching FL in txt file
+    image_name = image_path.split('/')[-1].split('.')[0]
+    with open(f'output/primaries/{image_name}_primaries.txt', 'w') as f:
+        # print the imput image path
+        f.write(f"Input image: {image_path}\n")
+        # print the best matching FL
+        f.write(f"Best FL: {best_FL}\n")
+        # print the predicted primaries in Lab color space
+        f.write(f"{Lab_primaries_best_FL[7][0]}\t{Lab_primaries_best_FL[7][1]}\t{Lab_primaries_best_FL[7][2]}\n")
+        for i in range(0, 7, 1):
+            f.write(f"{Lab_primaries_best_FL[i][0]}\t{Lab_primaries_best_FL[i][1]}\t{Lab_primaries_best_FL[i][2]}\n")
 
 
 if __name__ == "__main__":
-	image_path = 'python/input/Kodim22.png'
-	data_file_path = 'python/input/excel/i1_8colors_27FL_v1.xlsx'
+	image_path = 'input/image/kodim03.png'
+	data_file_path = 'input/excel/i1_8colors_27FL_v1.xlsx'
 	# Set up logging
-	logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-	main(image_path, data_file_path)
+	logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+	find_FL_with_mean(image_path, data_file_path)

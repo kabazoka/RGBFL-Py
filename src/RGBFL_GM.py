@@ -46,10 +46,10 @@ def calculate_nearest_for_color(args):
     b_translated = min(max(((index // (65*65)) * 4) - 1, 0), 255)
     g_translated = min(max((((index % (65*65)) // 65) * 4) - 1, 0), 255)
     r_translated = min(max(((index % 65) * 4) - 1, 0), 255)
-    if color == (53, 68, 70) or color == (54, 70, 72):
-        print(f"Color: {color}, LAB: {pixel_lab}")
-        print(f"Index: {index}")
-        print(f"Translated Color: ({ b_translated }, { g_translated }, { r_translated })")
+    # if color == (53, 68, 70) or color == (54, 70, 72):
+    #     print(f"Color: {color}, LAB: {pixel_lab}")
+    #     print(f"Index: {index}")
+    #     print(f"Translated Color: ({ b_translated }, { g_translated }, { r_translated })")
     return color, (b_translated, g_translated, r_translated)
 
 def find_nearest(node, target, depth=0, best=None):
@@ -107,13 +107,10 @@ def BGR_to_LAB(bgr):
     """
     # Convert BGR to RGB
     rgb = bgr[::-1]  # This reverses the BGR to RGB since BGR is just RGB in reverse order
-    
     # Normalize RGB values to the range [0, 1] for the conversion
     rgb_normalized = np.array(rgb) / 255.0
-    
     # Convert RGB to XYZ using the sRGB color space as the source space
     xyz = RGB_to_XYZ(rgb_normalized)
-    
     # Convert XYZ to Lab
     lab = colour.XYZ_to_Lab(xyz)
     
@@ -129,8 +126,8 @@ def apply_lut_with_cache(image, cache):
         for x in range(width):
             color = tuple(image[y, x])
             image[y, x] = cache[color]
-            if y == 0 and x == 38:
-                logging.info(f"Color: {color}, Translated Color: {cache[color]}")
+            # if y == 0 and x == 38:
+            #     logging.info(f"Color: {color}, Translated Color: {cache[color]}")
 
 def update_cache_with_multiprocessing(unique_colors, kd_tree):
     cache = {}
@@ -179,9 +176,10 @@ def read_lut_and_convert_to_lab_parallel(filename):
 
 
 if __name__ == "__main__":
-    image_filename = 'input/image/out_kodim22.png'
-    output_img_filename = 'output/image/out_kodim22-GM-kd-cache-65.png'
-    lut_filename = 'input/LUT/kodim22.txt'
+    kodim_num = "07"
+    image_filename = f'input/image/out_kodim{kodim_num}.png'
+    output_img_filename = f'output/image/out_kodim{kodim_num}-GM.png'
+    lut_filename = f'input/LUT/kodim{kodim_num}.txt'
 
     logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
