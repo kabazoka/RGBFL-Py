@@ -192,9 +192,9 @@ def plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, pr
     #     ax.plot(lab_FL_red_colors[simplex, 1], lab_FL_red_colors[simplex, 2], lab_FL_red_colors[simplex, 0], color='red', linewidth=0.5)
 
     # Scatter the colors of FL gamut and label them
-    # color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
-    # for i, color in enumerate(lab_FL_colors):
-    #     ax.scatter(color[1], color[2], color[0], s=10, label=color_list[i], c=color_list[i])
+    color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
+    for i, color in enumerate(lab_FL_colors):
+        ax.scatter(color[1], color[2], color[0], s=10, label=color_list[i], c=color_list[i])
         # ax.text(color[1], color[2], color[0], color_list[i])
 
     # # Scatter the colors of the image gamut and label them
@@ -208,12 +208,12 @@ def plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, pr
     #     ax.text(color[1], color[2], color[0], '(255, 0, 0)', fontsize=4)
     
     # Label the axes
-    # ax.set_xlabel('a*')
-    # ax.set_ylabel('b*')
-    # ax.set_zlabel('L*')
+    ax.set_xlabel('a*')
+    ax.set_ylabel('b*')
+    ax.set_zlabel('L*')
     
-    # plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
-    # plt.show()
+    plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
+    plt.show()
 
 def interpolate_color_for_color(FL, tri, values):
     return interpolate_color(tri, values, FL)
@@ -253,7 +253,7 @@ def find_best_FL(all_interpolated_FL, dominant_color):
 
     return best_FL, lowest_loss
 
-def find_FL_with_mean(image_path, data_file_path):
+def find_best_FL_with_mean(image_path, data_file_path):
     # Log the processing image path and the name of the excel file
     logging.info(f"Processing image: {image_path}")
     logging.info(f"Excel file: {data_file_path}")
@@ -303,57 +303,29 @@ def find_FL_with_mean(image_path, data_file_path):
 
     logging.info(f"Size of interpolated_FL_per_color: {len(all_interpolated_FL[color_list[0]])}")
 
-    # Initialize the best_FL_count dictionary
-    best_FL_count = {}
-    for r in range(0, 256, 5):
-        for g in range(0, 256, 5):
-            for b in range(0, 256, 5):
-                best_FL_count[str((r, g, b))] = 0
-
-    # ... process pixels with tqdm loop ...
-
-    lowest_loss = int(100000)
     best_FL = 0
-    best_FL, lowest_loss = find_best_FL(all_interpolated_FL, dominant_color)
-    best_FL_count[str(best_FL)] += 1
+    best_FL, _ = find_best_FL(all_interpolated_FL, dominant_color)
+    
+    return best_FL, all_interpolated_FL
 
-    # Find the 5 most appeared front lights and their count of appearance
-    top_5_front_lights = Counter(best_FL_count).most_common(5)
-    logging.info(top_5_front_lights)
+def find_total_gamut(all_FL):
+    # Load the FL colors
+    color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
+    all_colors = []
+    for color in color_list:
+        all_colors.extend(all_FL[color].values())
+    all_colors = np.array(all_colors)
 
-    # Phase 2: Fitting the image gamut to the front lights gamut
-    logging.info("Processing phase 2: Fitting the image gamut to the front lights gamut")
+    # Calculate the convex hull of the FL colors
+    FL_hull = ConvexHull(all_colors)
 
-    # Record the primaries under the best matching FL
-    primaries_best_FL = []
-    for i in range(0, 8, 1):
-        primaries_best_FL.append(all_interpolated_FL[color_list[i]][best_FL])
+    # record the vertices of the FL color gamut convex hull as the primary colors and return them
+    primary_colors = all_colors[FL_hull.vertices]
+    logging.info(f"Primary colors: {primary_colors}")
 
-    # Convert the primaries to Lab color space
-    primaries_best_FL = np.array(primaries_best_FL)
-    Lab_primaries_best_FL = []
-    for color in primaries_best_FL:
-        lab = colour.XYZ_to_Lab(color)
-        Lab_primaries_best_FL.append(lab)
+    return primary_colors
 
-    # logging.info('Predicted primaries(Lab):')
-    # for i in range(0, 8, 1):
-    #     logging.info(f"{color_list[i]}: L: {Lab_primaries_best_FL[i][0]}, a: {Lab_primaries_best_FL[i][1]}, b: {Lab_primaries_best_FL[i][2]}")
-
-    # Downsample the image to 1/4 of the original size
-    height, width = image.shape[:2]
-    downsampled_pixels_lab = []
-    for i in range(0, height * width // 4, 4):
-        max_L = max(all_pixels_lab[i][0], all_pixels_lab[i + 1][0], all_pixels_lab[i + 2][0], all_pixels_lab[i + 3][0])
-        max_a = max(all_pixels_lab[i][1], all_pixels_lab[i + 1][1], all_pixels_lab[i + 2][1], all_pixels_lab[i + 3][1])
-        max_b = max(all_pixels_lab[i][2], all_pixels_lab[i + 1][2], all_pixels_lab[i + 2][2], all_pixels_lab[i + 3][2])
-        downsampled_pixels_lab.append((max_L, max_a, max_b))
-
-    logging.info(f"Size of downsampled pixels: {len(downsampled_pixels_lab)}")
-
-    # Plot the image gamut in 3D
-    # plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, primaries_red_FL)
-
+def output_primary_colors(image_path, best_FL, Lab_primaries):
     # Outout the primaries under the best matching FL in txt file
     image_name = image_path.split('/')[-1].split('.')[0]
     with open(f'output/primaries/{image_name}_primaries.txt', 'w') as f:
@@ -362,19 +334,38 @@ def find_FL_with_mean(image_path, data_file_path):
         # print the best matching FL
         f.write(f"Best FL: {best_FL}\n")
         # print the predicted primaries in Lab color space
-        f.write(f"{Lab_primaries_best_FL[7][0]}\t{Lab_primaries_best_FL[7][1]}\t{Lab_primaries_best_FL[7][2]}\n")
-        for i in range(0, 7, 1):
-            f.write(f"{Lab_primaries_best_FL[i][0]}\t{Lab_primaries_best_FL[i][1]}\t{Lab_primaries_best_FL[i][2]}\n")
+        for i in range(len(Lab_primaries)):
+            f.write(f"{Lab_primaries[i][0]}\t{Lab_primaries[i][1]}\t{Lab_primaries[i][2]}\n")
 
+        # Plot the gamut in 3D
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        for color in Lab_primaries:
+            ax.scatter(color[1], color[2], color[0], s=10)
+        ax.set_xlabel('a*')
+        ax.set_ylabel('b*')
+        ax.set_zlabel('L*')
+        plt.title('Primary Colors in LAB Space')
+        plt.show()
+            
 
 if __name__ == "__main__":
-    for i in range(1, 25, 1):
-        kodim_num = str(i).zfill(2)
-        image_path = f'input/image/kodim{kodim_num}.png'
-        data_file_path = f'input/excel/i1_8colors_27FL_v1.xlsx'
-        find_FL_with_mean(image_path, data_file_path)
-	# image_path = 'input/image/kodim02.png'
-	# data_file_path = 'input/excel/i1_8colors_27FL_v1.xlsx'
-	# # Set up logging
-	# logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-	# find_FL_with_mean(image_path, data_file_path)
+    image_path = 'input/image/kodim03.png'
+    data_file_path = 'input/excel/i1_8colors_27FL_v1.xlsx'
+    # Set up logging
+    logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    # Find the best FL setting for the image
+    bestFL, all_FL = find_best_FL_with_mean(image_path, data_file_path)
+    logging.info(f"Best FL: {bestFL}")
+    #  Find the total gamut
+    primary_colors = find_total_gamut(all_FL)
+    # Output the txt file of primary colors
+    output_file = 'output/primary_colors.txt'
+    # Convert the primaries to Lab color space
+    Lab_primaries = []
+    for color in primary_colors:
+        Lab_primaries.append(colour.XYZ_to_Lab(color))
+    output_primary_colors(image_path, bestFL, Lab_primaries)
+
+
+

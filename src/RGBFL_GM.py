@@ -6,8 +6,37 @@ import logging
 import multiprocessing
 from multiprocessing import Pool
 
-# Node and KDTree classes (no changes needed)
+# Utility functions
+def RGB_to_XYZ(RGB):
+    # Convert the RGB values to XYZ values
+    XYZ = colour.RGB_to_XYZ(RGB, "sRGB", None, None)
+    x, y, z = XYZ
+    XYZ = (x / 10, y / 10, z / 10)
 
+    return XYZ
+
+def BGR_to_LAB(bgr):
+    """
+    Convert a BGR color to Lab color space using the colour-science package.
+
+    Parameters:
+    - bgr: A (3,) numpy array or a tuple/list of BGR values in the range 0-255.
+
+    Returns:
+    - lab: A (3,) numpy array of Lab values.
+    """
+    # Convert BGR to RGB
+    rgb = bgr[::-1]  # This reverses the BGR to RGB since BGR is just RGB in reverse order
+    # Normalize RGB values to the range [0, 1] for the conversion
+    rgb_normalized = np.array(rgb) / 255.0
+    # Convert RGB to XYZ using the sRGB color space as the source space
+    xyz = RGB_to_XYZ(rgb_normalized)
+    # Convert XYZ to Lab
+    lab = colour.XYZ_to_Lab(xyz)
+    
+    return lab
+
+# Node and KDTree classes
 class Node:
     def __init__(self, point=None, index=None, left=None, right=None):
         self.point = point
@@ -39,18 +68,48 @@ class KDTree:
         indexed_points = [(point, i) for i, point in enumerate(points)]
         self.root = self.build_tree(indexed_points)
 
+previous_translated_color = None
+previous_translated_color_lab = None
+previous_pixel = None
+previous_pixel_lab = None
+
 def calculate_nearest_for_color(args):
-    color, kd_tree = args
-    pixel_lab = BGR_to_LAB(color)
+    pixel, kd_tree = args
+    pixel_lab = BGR_to_LAB(pixel)
     index, _ = nearest_neighbor(kd_tree, pixel_lab)
     b_translated = min(max(((index // (65*65)) * 4) - 1, 0), 255)
     g_translated = min(max((((index % (65*65)) // 65) * 4) - 1, 0), 255)
     r_translated = min(max(((index % 65) * 4) - 1, 0), 255)
-    # if color == (53, 68, 70) or color == (54, 70, 72):
-    #     print(f"Color: {color}, LAB: {pixel_lab}")
+    
+    # # Debugging anomalous colors
+    # if pixel == (53, 68, 70) or pixel == (54, 70, 72):
+    #     print(f"Current pixel: {pixel}, LAB: {pixel_lab}")
     #     print(f"Index: {index}")
     #     print(f"Translated Color: ({ b_translated }, { g_translated }, { r_translated })")
-    return color, (b_translated, g_translated, r_translated)
+    #     print(colour.delta_E(BGR_to_LAB((53, 68, 70)), BGR_to_LAB((54, 70, 72))))
+    #     print(colour.delta_E(BGR_to_LAB((211, 35, 11)), BGR_to_LAB((207, 131, 79))))
+    
+    # # Solving for anomalous colors
+    # global previous_translated_color, previous_translated_color_lab, previous_pixel_lab, previous_pixel
+    # # If the translated color is similar to previous color, then use the previous color's translation
+    # current_color = (b_translated, g_translated, r_translated)
+    # current_color_lab = BGR_to_LAB((b_translated, g_translated, r_translated))
+    # # if the current previous pixel is similar from the current pixel but the previous translated color is different from the current translated color,
+    # # then use the previous color's translation
+    # if previous_translated_color != None and colour.delta_E(previous_pixel_lab, pixel_lab) < 0.5 and colour.delta_E(previous_translated_color_lab, current_color_lab) > 3:
+    #     print(f"Anomalous color detected: {pixel}, previous_pixel: {previous_pixel}, previous_translated_color: {previous_translated_color}, current_color: {current_color}")
+    #     b_translated = previous_translated_color[0]
+    #     g_translated = previous_translated_color[1]
+    #     r_translated = previous_translated_color[2]
+    #     print(f"Corrected color: ({ b_translated }, { g_translated }, { r_translated })")
+    
+    # # Record the current pixel and the translated color
+    # previous_translated_color = (b_translated, g_translated, r_translated)
+    # previous_translated_color_lab = BGR_to_LAB(previous_translated_color)
+    # previous_pixel_lab = pixel_lab
+    # previous_pixel = pixel
+
+    return pixel, (b_translated, g_translated, r_translated)
 
 def find_nearest(node, target, depth=0, best=None):
     if node is None:
@@ -85,36 +144,6 @@ def find_nearest(node, target, depth=0, best=None):
 def nearest_neighbor(kd_tree, target):
     node = find_nearest(kd_tree.root, target)
     return node.index, node.point
-
-# Utility functions
-def RGB_to_XYZ(RGB):
-    # Convert the RGB values to XYZ values
-    XYZ = colour.RGB_to_XYZ(RGB, "sRGB", None, None)
-    x, y, z = XYZ
-    XYZ = (x / 10, y / 10, z / 10)
-
-    return XYZ
-
-def BGR_to_LAB(bgr):
-    """
-    Convert a BGR color to Lab color space using the colour-science package.
-
-    Parameters:
-    - bgr: A (3,) numpy array or a tuple/list of BGR values in the range 0-255.
-
-    Returns:
-    - lab: A (3,) numpy array of Lab values.
-    """
-    # Convert BGR to RGB
-    rgb = bgr[::-1]  # This reverses the BGR to RGB since BGR is just RGB in reverse order
-    # Normalize RGB values to the range [0, 1] for the conversion
-    rgb_normalized = np.array(rgb) / 255.0
-    # Convert RGB to XYZ using the sRGB color space as the source space
-    xyz = RGB_to_XYZ(rgb_normalized)
-    # Convert XYZ to Lab
-    lab = colour.XYZ_to_Lab(xyz)
-    
-    return lab
 
 def extract_unique_colors(image):
     unique_colors = np.unique(image.reshape(-1, 3), axis=0)
@@ -176,7 +205,7 @@ def read_lut_and_convert_to_lab_parallel(filename):
 
 
 if __name__ == "__main__":
-    kodim_num = "07"
+    kodim_num = "01"
     image_filename = f'input/image/out_kodim{kodim_num}.png'
     output_img_filename = f'output/image/out_kodim{kodim_num}-GM.png'
     lut_filename = f'input/LUT/kodim{kodim_num}.txt'
