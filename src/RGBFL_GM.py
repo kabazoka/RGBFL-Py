@@ -205,33 +205,65 @@ def read_lut_and_convert_to_lab_parallel(filename):
 
 
 if __name__ == "__main__":
-    kodim_num = "01"
-    image_filename = f'input/image/out_kodim{kodim_num}.png'
-    output_img_filename = f'output/image/out_kodim{kodim_num}-GM.png'
-    lut_filename = f'input/LUT/kodim{kodim_num}.txt'
+    for i in range(1, 25):
+        kodim_num = f"{i:02d}"
+        image_filename = f'input/image/out_kodim{kodim_num}.png'
+        output_img_filename = f'output/image/out_kodim{kodim_num}-GM.png'
+        lut_filename = f'input/LUT/kodim{kodim_num}.txt'
 
-    logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+        logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    logging.info("Reading LUT and converting to LAB...")
-    lut_lab = read_lut_and_convert_to_lab_parallel(lut_filename)
+        logging.info("Reading LUT and converting to LAB...")
+        lut_lab = read_lut_and_convert_to_lab_parallel(lut_filename)
 
-    logging.info("Constructing KD-Tree...")
-    kd_tree = KDTree()
-    kd_tree.construct_tree(lut_lab)
+        logging.info("Constructing KD-Tree...")
+        kd_tree = KDTree()
+        kd_tree.construct_tree(lut_lab)
 
-    logging.info("Extracting unique colors from image...")
-    image = cv2.imread(image_filename, cv2.IMREAD_COLOR)
-    unique_colors = extract_unique_colors(image)
+        logging.info("Extracting unique colors from image...")
+        image = cv2.imread(image_filename, cv2.IMREAD_COLOR)
+        unique_colors = extract_unique_colors(image)
 
-    logging.info("Constructing KD-Tree...")
-    kd_tree = KDTree()
-    kd_tree.construct_tree(lut_lab)
+        logging.info("Constructing KD-Tree...")
+        kd_tree = KDTree()
+        kd_tree.construct_tree(lut_lab)
 
-    logging.info("Calculating nearest neighbors for unique colors and updating cache with multiprocessing...")
-    cache = update_cache_with_multiprocessing(unique_colors, kd_tree)
+        logging.info("Calculating nearest neighbors for unique colors and updating cache with multiprocessing...")
+        cache = update_cache_with_multiprocessing(unique_colors, kd_tree)
 
-    logging.info("Applying LUT to image using cache...")
-    apply_lut_with_cache(image, cache)
+        logging.info("Applying LUT to image using cache...")
+        apply_lut_with_cache(image, cache)
 
-    cv2.imwrite(output_img_filename, image)
-    logging.info("Done applying LUT to image.")
+        cv2.imwrite(output_img_filename, image)
+        logging.info("Done applying LUT to image.")
+
+    # kodim_num = "01"
+    # image_filename = f'input/image/out_kodim{kodim_num}.png'
+    # output_img_filename = f'output/image/out_kodim{kodim_num}-GM.png'
+    # lut_filename = f'input/LUT/kodim{kodim_num}.txt'
+
+    # logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+    # logging.info("Reading LUT and converting to LAB...")
+    # lut_lab = read_lut_and_convert_to_lab_parallel(lut_filename)
+
+    # logging.info("Constructing KD-Tree...")
+    # kd_tree = KDTree()
+    # kd_tree.construct_tree(lut_lab)
+
+    # logging.info("Extracting unique colors from image...")
+    # image = cv2.imread(image_filename, cv2.IMREAD_COLOR)
+    # unique_colors = extract_unique_colors(image)
+
+    # logging.info("Constructing KD-Tree...")
+    # kd_tree = KDTree()
+    # kd_tree.construct_tree(lut_lab)
+
+    # logging.info("Calculating nearest neighbors for unique colors and updating cache with multiprocessing...")
+    # cache = update_cache_with_multiprocessing(unique_colors, kd_tree)
+
+    # logging.info("Applying LUT to image using cache...")
+    # apply_lut_with_cache(image, cache)
+
+    # cv2.imwrite(output_img_filename, image)
+    # logging.info("Done applying LUT to image.")
