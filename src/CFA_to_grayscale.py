@@ -46,16 +46,23 @@ new_height = 1404
 
 # Call the function with the path to your image
 
-input_image_path = 'output/CFA/Kodim22-resized-HT.bmp'
-output_image_path = input_image_path.replace('.bmp', '-gray.bmp')
-# input_image_path = 'output/image/out_kodim22-GM-32.png'
-# output_image_path = 'output/CFA/out_kodim22-GM-32-resized.png'
+#
+input_folder = 'C:/Users/kabaz/Documents/GitHub/RGBFL_CFA_ePaper/output/CFA/'
+output_folder = 'C:/Users/kabaz/Documents/GitHub/RGBFL_CFA_ePaper/output/CFA/gray/'
 
-# Convert the image to grayscale
-grayimage = to_grayscale(input_image_path)
-grayimage.save(output_image_path, mode="RGB")
-# print("Image converted to grayscale successfully!")
-
-# Resize the image
-# resize_image(input_image_path, output_image_path, new_width, new_height)
-# print(f"Image has been resized and saved to {output_image_path}")
+# Run the function for all images in the folder
+for i in range(1, 25):
+    kodim_num = f"{i:02d}"
+    input_image_path = f'{input_folder}kodim{kodim_num}-resized-HT.bmp'
+    output_image_path = f'{output_folder}kodim{kodim_num}-resized-HT-gray.bmp'
+    # skip the image if it is not found
+    try:
+        with Image.open(input_image_path) as img:
+            pass
+    except FileNotFoundError:
+        print(f"Image {i} not found, skipping...")
+        continue
+    # Convert the image to grayscale
+    grayimage = to_grayscale(input_image_path)
+    grayimage.save(output_image_path, mode="RGB")
+    print(f"Image {i} converted to grayscale successfully!")

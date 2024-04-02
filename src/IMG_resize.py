@@ -12,8 +12,8 @@ def resize_image(input_path, output_path, new_width, new_height):
 
 for i in range(1, 25):
     kodim_num = f"{i:02d}"
-    input_image_path = f'output/image/out_kodim{kodim_num}-GM.png'
-    output_image_path = f'output/image/resized/out_kodim{kodim_num}-GM-resized.png'
+    input_image_path = f'input/image/kodim{kodim_num}.png'
+    output_image_path = f'output/image/resized/kodim{kodim_num}-resized.png'
     resize_image(input_image_path, output_image_path, 1872, 1404)
     print(f"Image {i} has been resized and saved to {output_image_path}")
 
