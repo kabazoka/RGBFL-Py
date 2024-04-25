@@ -932,3 +932,60 @@
 2024-04-01 17:08:08,161 - INFO - Number of processes: 16
 2024-04-01 17:09:33,001 - INFO - Applying LUT to image using cache...
 2024-04-01 17:09:33,418 - INFO - Done applying LUT to image.
+2024-04-25 10:59:10,534 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 10:59:10,534 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 10:59:10,534 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 10:59:10,875 - INFO - Mean L: 35.70270538330078, Mean a: 34.910911560058594, Mean b: 33.55611038208008
+2024-04-25 10:59:10,938 - INFO - Centroid of the image gamut: [ 41.78466797  19.08465485  24.4869403 ]
+2024-04-25 10:59:11,015 - INFO - Generating all possible predicted colors
+2024-04-25 10:59:16,562 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 10:59:27,469 - INFO - [('(255, 55, 10)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-04-25 10:59:27,470 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-04-25 10:59:27,544 - INFO - Size of downsampled pixels: 24576
+2024-04-25 11:03:33,038 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 11:03:33,038 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 11:03:33,038 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 11:03:33,339 - INFO - Mean L: 35.70270538330078, Mean a: 34.910911560058594, Mean b: 33.55611038208008
+2024-04-25 11:03:33,391 - INFO - Centroid of the image gamut: [ 41.78466797  19.08465485  24.4869403 ]
+2024-04-25 11:05:37,769 - INFO - Generating all possible predicted colors
+2024-04-25 11:05:43,576 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 11:05:54,660 - INFO - [('(255, 55, 10)', 1), ('(0, 0, 0)', 0), ('(0, 0, 5)', 0), ('(0, 0, 10)', 0), ('(0, 0, 15)', 0)]
+2024-04-25 11:05:54,660 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-04-25 11:05:54,738 - INFO - Size of downsampled pixels: 24576
+2024-04-25 11:11:37,423 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 11:11:37,424 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 11:11:37,424 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 11:11:37,723 - INFO - Mean L: 35.70270538330078, Mean a: 34.910911560058594, Mean b: 33.55611038208008
+2024-04-25 11:11:37,777 - INFO - Centroid of the image gamut: [ 41.78466797  19.08465485  24.4869403 ]
+2024-04-25 11:14:54,259 - INFO - Generating all possible predicted colors
+2024-04-25 11:15:00,255 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 11:15:11,364 - INFO - Processing phase 2: Fitting the image gamut to the front lights gamut
+2024-04-25 11:15:11,428 - INFO - Size of downsampled pixels: 24576
+2024-04-25 11:41:18,828 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 11:41:18,828 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 11:41:18,828 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 11:41:19,209 - INFO - Size of downsampled pixels: 24576
+2024-04-25 11:41:19,224 - INFO - Centroid of the image gamut: [ 34.28654746  20.3844246   22.3844246 ]
+2024-04-25 11:41:19,307 - INFO - Generating all possible predicted colors
+2024-04-25 11:41:24,968 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 11:54:40,214 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 11:54:40,214 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 11:54:40,214 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 11:54:40,595 - INFO - Size of downsampled pixels: 24576
+2024-04-25 11:54:40,610 - INFO - Centroid of the image gamut: [ 34.28654746  20.3844246   22.3844246 ]
+2024-04-25 11:54:40,691 - INFO - Generating all possible predicted colors
+2024-04-25 11:54:46,043 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 13:13:21,017 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 13:13:21,017 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 13:13:21,017 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 13:13:21,394 - INFO - Size of downsampled pixels: 24576
+2024-04-25 13:13:21,410 - INFO - Centroid of the image gamut: [ 34.28654746  20.3844246   22.3844246 ]
+2024-04-25 13:13:21,501 - INFO - Generating all possible predicted colors
+2024-04-25 13:13:27,528 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 13:13:37,959 - INFO - Processing image: input/image/kodim02.png
+2024-04-25 13:13:37,959 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 13:13:37,959 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 13:13:38,349 - INFO - Size of downsampled pixels: 24576
+2024-04-25 13:13:38,366 - INFO - Centroid of the image gamut: [ 34.28654746  20.3844246   22.3844246 ]
+2024-04-25 13:13:38,449 - INFO - Generating all possible predicted colors
+2024-04-25 13:13:44,427 - INFO - Size of interpolated_FL_per_color: 7957

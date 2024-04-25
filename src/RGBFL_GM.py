@@ -68,11 +68,6 @@ class KDTree:
         indexed_points = [(point, i) for i, point in enumerate(points)]
         self.root = self.build_tree(indexed_points)
 
-previous_translated_color = None
-previous_translated_color_lab = None
-previous_pixel = None
-previous_pixel_lab = None
-
 def calculate_nearest_for_color(args):
     pixel, kd_tree = args
     pixel_lab = BGR_to_LAB(pixel)
@@ -80,34 +75,6 @@ def calculate_nearest_for_color(args):
     b_translated = min(max(((index // (65*65)) * 4) - 1, 0), 255)
     g_translated = min(max((((index % (65*65)) // 65) * 4) - 1, 0), 255)
     r_translated = min(max(((index % 65) * 4) - 1, 0), 255)
-    
-    # # Debugging anomalous colors
-    # if pixel == (53, 68, 70) or pixel == (54, 70, 72):
-    #     print(f"Current pixel: {pixel}, LAB: {pixel_lab}")
-    #     print(f"Index: {index}")
-    #     print(f"Translated Color: ({ b_translated }, { g_translated }, { r_translated })")
-    #     print(colour.delta_E(BGR_to_LAB((53, 68, 70)), BGR_to_LAB((54, 70, 72))))
-    #     print(colour.delta_E(BGR_to_LAB((211, 35, 11)), BGR_to_LAB((207, 131, 79))))
-    
-    # # Solving for anomalous colors
-    # global previous_translated_color, previous_translated_color_lab, previous_pixel_lab, previous_pixel
-    # # If the translated color is similar to previous color, then use the previous color's translation
-    # current_color = (b_translated, g_translated, r_translated)
-    # current_color_lab = BGR_to_LAB((b_translated, g_translated, r_translated))
-    # # if the current previous pixel is similar from the current pixel but the previous translated color is different from the current translated color,
-    # # then use the previous color's translation
-    # if previous_translated_color != None and colour.delta_E(previous_pixel_lab, pixel_lab) < 0.5 and colour.delta_E(previous_translated_color_lab, current_color_lab) > 3:
-    #     print(f"Anomalous color detected: {pixel}, previous_pixel: {previous_pixel}, previous_translated_color: {previous_translated_color}, current_color: {current_color}")
-    #     b_translated = previous_translated_color[0]
-    #     g_translated = previous_translated_color[1]
-    #     r_translated = previous_translated_color[2]
-    #     print(f"Corrected color: ({ b_translated }, { g_translated }, { r_translated })")
-    
-    # # Record the current pixel and the translated color
-    # previous_translated_color = (b_translated, g_translated, r_translated)
-    # previous_translated_color_lab = BGR_to_LAB(previous_translated_color)
-    # previous_pixel_lab = pixel_lab
-    # previous_pixel = pixel
 
     return pixel, (b_translated, g_translated, r_translated)
 

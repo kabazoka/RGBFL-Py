@@ -6,11 +6,12 @@ import pandas as pd
 from scipy.spatial import Delaunay, ConvexHull
 from scipy.interpolate import LinearNDInterpolator
 import logging
-from collections import Counter
+
 import matplotlib.pyplot as plt
 import multiprocessing
 from functools import partial
 from multiprocessing import Pool, cpu_count
+from scipy.spatial import KDTree
 
 # Function to convert BGR to CIELab color space
 def bgr_to_lab(bgr):
@@ -272,13 +273,32 @@ def find_FL_with_mean(image_path, data_file_path):
     image_lab = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
     all_pixels_lab = image_lab.reshape(-1, 3)
 
+        # Downsample the image to 1/4 of the original size
+    height, width = image.shape[:2]
+    downsampled_pixels_lab = []
+    for i in range(0, height * width // 4, 4):
+        max_L = max(all_pixels_lab[i][0], all_pixels_lab[i + 1][0], all_pixels_lab[i + 2][0], all_pixels_lab[i + 3][0])
+        max_a = max(all_pixels_lab[i][1], all_pixels_lab[i + 1][1], all_pixels_lab[i + 2][1], all_pixels_lab[i + 3][1])
+        max_b = max(all_pixels_lab[i][2], all_pixels_lab[i + 1][2], all_pixels_lab[i + 2][2], all_pixels_lab[i + 3][2])
+        downsampled_pixels_lab.append((max_L, max_a, max_b))
+
+    logging.info(f"Size of downsampled pixels: {len(downsampled_pixels_lab)}")
+
     # Choose a color as the color representing the image
     # By finding the mean of each L* a* b* channel of every pixels in the image
-    mean_L = np.mean(all_pixels_lab[:, 0])
-    mean_a = np.mean(all_pixels_lab[:, 1])
-    mean_b = np.mean(all_pixels_lab[:, 2])
-    dominant_color = (mean_L, mean_a, mean_b)
-    logging.info(f"Mean L: {mean_L}, Mean a: {mean_a}, Mean b: {mean_b}")
+    # mean_L = np.mean(downsampled_pixels_lab[:, 0])
+    # mean_a = np.mean(downsampled_pixels_lab[:, 1])
+    # mean_b = np.mean(downsampled_pixels_lab[:, 2])
+    # dominant_color = (mean_L, mean_a, mean_b)
+    # logging.info(f"Mean L: {mean_L}, Mean a: {mean_a}, Mean b: {mean_b}")
+
+    # Finding the centroid of the image gamut found by the convex hull
+    image_hull = ConvexHull(downsampled_pixels_lab)
+    image_centroid = np.mean(image_hull.points[image_hull.vertices], axis=0)
+    logging.info(f"Centroid of the image gamut: {image_centroid}")
+
+    # Choose the centroid of the image gamut as the dominant color
+    dominant_color = (image_centroid[0], image_centroid[1], image_centroid[2])
 
     # Generate all possible predicted colors just once
     color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
@@ -310,19 +330,8 @@ def find_FL_with_mean(image_path, data_file_path):
             for b in range(0, 256, 5):
                 best_FL_count[str((r, g, b))] = 0
 
-    # ... process pixels with tqdm loop ...
-
-    lowest_loss = int(100000)
-    best_FL = 0
-    best_FL, lowest_loss = find_best_FL(all_interpolated_FL, dominant_color)
+    best_FL, _ = find_best_FL(all_interpolated_FL, dominant_color)
     best_FL_count[str(best_FL)] += 1
-
-    # Find the 5 most appeared front lights and their count of appearance
-    top_5_front_lights = Counter(best_FL_count).most_common(5)
-    logging.info(top_5_front_lights)
-
-    # Phase 2: Fitting the image gamut to the front lights gamut
-    logging.info("Processing phase 2: Fitting the image gamut to the front lights gamut")
 
     # Record the primaries under the best matching FL
     primaries_best_FL = []
@@ -335,24 +344,6 @@ def find_FL_with_mean(image_path, data_file_path):
     for color in primaries_best_FL:
         lab = colour.XYZ_to_Lab(color)
         Lab_primaries_best_FL.append(lab)
-
-    # logging.info('Predicted primaries(Lab):')
-    # for i in range(0, 8, 1):
-    #     logging.info(f"{color_list[i]}: L: {Lab_primaries_best_FL[i][0]}, a: {Lab_primaries_best_FL[i][1]}, b: {Lab_primaries_best_FL[i][2]}")
-
-    # Downsample the image to 1/4 of the original size
-    height, width = image.shape[:2]
-    downsampled_pixels_lab = []
-    for i in range(0, height * width // 4, 4):
-        max_L = max(all_pixels_lab[i][0], all_pixels_lab[i + 1][0], all_pixels_lab[i + 2][0], all_pixels_lab[i + 3][0])
-        max_a = max(all_pixels_lab[i][1], all_pixels_lab[i + 1][1], all_pixels_lab[i + 2][1], all_pixels_lab[i + 3][1])
-        max_b = max(all_pixels_lab[i][2], all_pixels_lab[i + 1][2], all_pixels_lab[i + 2][2], all_pixels_lab[i + 3][2])
-        downsampled_pixels_lab.append((max_L, max_a, max_b))
-
-    logging.info(f"Size of downsampled pixels: {len(downsampled_pixels_lab)}")
-
-    # Plot the image gamut in 3D
-    # plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, primaries_red_FL)
 
     # Outout the primaries under the best matching FL in txt file
     image_name = image_path.split('/')[-1].split('.')[0]
@@ -368,13 +359,13 @@ def find_FL_with_mean(image_path, data_file_path):
 
 
 if __name__ == "__main__":
-    for i in range(1, 25, 1):
-        kodim_num = str(i).zfill(2)
-        image_path = f'input/image/kodim{kodim_num}.png'
-        data_file_path = f'input/excel/i1_8colors_27FL_v1.xlsx'
-        find_FL_with_mean(image_path, data_file_path)
-	# image_path = 'input/image/kodim02.png'
-	# data_file_path = 'input/excel/i1_8colors_27FL_v1.xlsx'
-	# # Set up logging
-	# logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-	# find_FL_with_mean(image_path, data_file_path)
+    # for i in range(1, 25, 1):
+    #     kodim_num = str(i).zfill(2)
+    #     image_path = f'input/image/kodim{kodim_num}.png'
+    #     data_file_path = f'input/excel/i1_8colors_27FL_v1.xlsx'
+    #     find_FL_with_mean(image_path, data_file_path)
+	image_path = 'input/image/kodim02.png'
+	data_file_path = 'input/excel/i1_8colors_27FL_v1.xlsx'
+	# Set up logging
+	logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+	find_FL_with_mean(image_path, data_file_path)
