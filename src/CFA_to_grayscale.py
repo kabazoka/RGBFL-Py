@@ -47,8 +47,8 @@ new_height = 1404
 # Call the function with the path to your image
 
 #
-input_folder = 'C:/Users/kabaz/Documents/GitHub/RGBFL_CFA_ePaper/output/CFA/'
-output_folder = 'C:/Users/kabaz/Documents/GitHub/RGBFL_CFA_ePaper/output/CFA/gray/'
+input_folder = 'C:/Users/kabaz/Documents/GitHub/RGBFL-Py/output/CFA/'
+output_folder = 'C:/Users/kabaz/Documents/GitHub/RGBFL-Py/output/CFA/gray/'
 
 # Run the function for all images in the folder
 for i in range(1, 25):

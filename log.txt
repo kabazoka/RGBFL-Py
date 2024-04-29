@@ -989,3 +989,10 @@
 2024-04-25 13:13:38,366 - INFO - Centroid of the image gamut: [ 34.28654746  20.3844246   22.3844246 ]
 2024-04-25 13:13:38,449 - INFO - Generating all possible predicted colors
 2024-04-25 13:13:44,427 - INFO - Size of interpolated_FL_per_color: 7957
+2024-04-25 18:03:41,324 - INFO - Processing image: input/image/kodim01.png
+2024-04-25 18:03:41,325 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-04-25 18:03:41,325 - INFO - Processing phase 1: Matching the best existing FL setting for each pixel in the image
+2024-04-25 18:03:41,717 - INFO - Size of downsampled pixels: 24576
+2024-04-25 18:03:41,732 - INFO - Centroid of the image gamut: [ 50.87326629   8.53421677  17.25276899]
+2024-04-25 18:03:41,817 - INFO - Generating all possible predicted colors
+2024-04-25 18:03:47,454 - INFO - Size of interpolated_FL_per_color: 7957

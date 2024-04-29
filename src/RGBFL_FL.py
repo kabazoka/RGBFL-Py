@@ -364,7 +364,7 @@ if __name__ == "__main__":
     #     image_path = f'input/image/kodim{kodim_num}.png'
     #     data_file_path = f'input/excel/i1_8colors_27FL_v1.xlsx'
     #     find_FL_with_mean(image_path, data_file_path)
-	image_path = 'input/image/kodim02.png'
+	image_path = 'input/image/kodim01.png'
 	data_file_path = 'input/excel/i1_8colors_27FL_v1.xlsx'
 	# Set up logging
 	logging.basicConfig(filename='log.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
