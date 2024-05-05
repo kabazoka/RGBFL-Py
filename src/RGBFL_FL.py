@@ -6,7 +6,6 @@ import pandas as pd
 from scipy.spatial import Delaunay, ConvexHull
 from scipy.interpolate import LinearNDInterpolator
 import logging
-
 import matplotlib.pyplot as plt
 import multiprocessing
 from functools import partial
@@ -36,24 +35,6 @@ def read_color_measurement_data_combined(file_path):
 		FL_blue.append(df_FL_B)
 	
 	FL_pts_all = np.vstack([FL_red, FL_green, FL_blue]).T
-	
-	# all_colors = []
-	# all_dict = {}
-	# for i in range(0, 27, 1):
-	# 	for j in range(0, 8, 1):
-	# 		X = df_all.at[i, "X{}".format(j + 1)]
-	# 		Y = df_all.at[i, "Y{}".format(j + 1)]
-	# 		Z = df_all.at[i, "Z{}".format(j + 1)]
-	# 		all_colors.append((X, Y, Z))
-	
-	# for i in range(0, 27, 1):
-	# 	FL_pts = FL_pts_all[i]
-	# 	color_dict = {}
-	# 	for j in range(0, 8, 1):
-	# 		color_dict[color_list[j]] = all_colors[i * 8 + j]
-	# 		all_dict[str(FL_pts)] = color_dict
-
-    # return FL_pts_all, all_dict
 
 	return FL_pts_all
 
@@ -132,89 +113,104 @@ def plot_interpolating_FL_combinations(allFLs):
     ax.set_zlabel('FL_B')
     plt.show()
 
-def plot_image_and_FL_gamut(image_path, primaries_best_FL, primaries_full_FL, primaries_red_FL):
-    # Load the image
-    image = cv2.imread(image_path)
-    image = image.astype("float32") / 255
-    # Convert the image from BGR to LAB color space
-    lab_image = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
-    # Reshape the image array into a list of LAB colors
-    lab_colors = lab_image.reshape((-1, 3))
-
+def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selected_pixels_lab, all_FLs, G_FL, R_FL, B_FL):
     # Create a 3D plot
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     
     # Calculate the convex hull of the LAB colors
-    image_hull = ConvexHull(lab_colors)
+    image_hull = ConvexHull(pixels_lab)
     # Calculate the convex hull of the FL colors
     FL_hull = ConvexHull(primaries_best_FL)
-    # Calculate the convex hull of the Full FL colors
-    Full_FL_hull = ConvexHull(primaries_full_FL)
-    # Calculate the convex hull of the red FL colors
-    red_FL_hull = ConvexHull(primaries_red_FL)
+    r_hull = ConvexHull(R_FL)
+    g_hull = ConvexHull(G_FL)
+    b_hull = ConvexHull(B_FL)
+    # # Calculate the convex hull of all FL colors
+    # all_FLs = np.array(all_FLs)
+    # all_FLs_hull = ConvexHull(all_FLs)
+
 
     # Plot the vertices of the image color gamut convex hull
     for simplex in image_hull.simplices:
-        ax.plot(lab_colors[simplex, 1], lab_colors[simplex, 2], lab_colors[simplex, 0], color='orange', linewidth=0.5)
+        ax.plot(pixels_lab[simplex, 1], pixels_lab[simplex, 2], pixels_lab[simplex, 0], color='orange', linewidth=0.5)
     
     # Scatter the colors of the image
-    ax.scatter(lab_colors[:,1], lab_colors[:,2], lab_colors[:,0], s=0.005, c='orange')
+    ax.scatter(pixels_lab[:,1], pixels_lab[:,2], pixels_lab[:,0], s=0.005, c='orange')
     
     # Convert the colors to LAB color space
     lab_FL_colors = []
-    lab_FL_Full_colors = []
-    lab_FL_red_colors = []
+    lab_FL_R = []
+    lab_FL_G = []
+    lab_FL_B = []
     
     for color in primaries_best_FL:
         lab = colour.XYZ_to_Lab(color)
         lab_FL_colors.append(lab)
-    for color in primaries_full_FL:
+
+    for color in R_FL:
         lab = colour.XYZ_to_Lab(color)
-        lab_FL_Full_colors.append(lab)
-    for color in primaries_red_FL:
+        lab_FL_R.append(lab)
+
+    for color in G_FL:
         lab = colour.XYZ_to_Lab(color)
-        lab_FL_red_colors.append(lab)
+        lab_FL_G.append(lab)
+
+    for color in B_FL:
+        lab = colour.XYZ_to_Lab(color)
+        lab_FL_B.append(lab)
 
     lab_FL_colors = np.array(lab_FL_colors)  # Convert list to NumPy array
-    lab_FL_Full_colors = np.array(lab_FL_Full_colors)  # Convert list to NumPy array
-    lab_FL_red_colors = np.array(lab_FL_red_colors)  # Convert list to NumPy array
-    
+    lab_FL_R = np.array(lab_FL_R)
+    lab_FL_G = np.array(lab_FL_G)
+    lab_FL_B = np.array(lab_FL_B)
+
+    # # Convert the colors to LAB color space of all FLs
+    # lab_all_FLs = []
+    # for color in all_FLs:
+    #     lab = colour.XYZ_to_Lab(color)
+    #     lab_all_FLs.append(lab)
+
+    # lab_all_FLs = np.array(lab_all_FLs)
+
     # Plot the vertices of the FL color gamut convex hull
     for simplex in FL_hull.simplices:
         ax.plot(lab_FL_colors[simplex, 1], lab_FL_colors[simplex, 2], lab_FL_colors[simplex, 0], color='red', linewidth=0.8, label='FL gamut')
 
-    # # Plot the vertices of the Full FL color gamut convex hull
-    # for simplex in Full_FL_hull.simplices:
-    #     ax.plot(lab_FL_Full_colors[simplex, 1], lab_FL_Full_colors[simplex, 2], lab_FL_Full_colors[simplex, 0], color='green', linewidth=0.5)
+    # Plot the vertices of the R_FL color gamut convex hull
+    for simplex in r_hull.simplices:
+        ax.plot(lab_FL_R[simplex, 1], lab_FL_R[simplex, 2], lab_FL_R[simplex, 0], color='red', linewidth=0.8, label='(255, 0, 0)')
+    
+    # Plot the vertices of the G_FL color gamut convex hull
+    for simplex in g_hull.simplices:
+        ax.plot(lab_FL_G[simplex, 1], lab_FL_G[simplex, 2], lab_FL_G[simplex, 0], color='green', linewidth=0.8, label='(0, 255, 0)')
 
-    # # Plot the vertices of the red FL color gamut convex hull
-    # for simplex in red_FL_hull.simplices:
-    #     ax.plot(lab_FL_red_colors[simplex, 1], lab_FL_red_colors[simplex, 2], lab_FL_red_colors[simplex, 0], color='red', linewidth=0.5)
+    # Plot the vertices of the B_FL color gamut convex hull
+    for simplex in b_hull.simplices:
+        ax.plot(lab_FL_B[simplex, 1], lab_FL_B[simplex, 2], lab_FL_B[simplex, 0], color='blue', linewidth=0.8, label='(0, 0, 255)')
 
-    # Scatter the colors of FL gamut and label them
+    # Plot the vertices of the FL color gamut convex hull
+    # for simplex in all_FLs_hull.simplices:
+    #     ax.plot(lab_all_FLs[simplex, 1], lab_all_FLs[simplex, 2], lab_all_FLs[simplex, 0], color='blue', linewidth=0.8, label='All FL gamut')
+
+    # # Scatter the colors of FL gamut and label them
     # color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
     # for i, color in enumerate(lab_FL_colors):
     #     ax.scatter(color[1], color[2], color[0], s=10, label=color_list[i], c=color_list[i])
-        # ax.text(color[1], color[2], color[0], color_list[i])
-
-    # # Scatter the colors of the image gamut and label them
-    # for i, color in enumerate(lab_FL_Full_colors):
-    #     ax.scatter(color[1], color[2], color[0], s=10, label=color_list[i], c=color_list[i])
-    #     ax.text(color[1], color[2], color[0], '(255, 255, 255)', fontsize=4)
-
-    # # Scatter the colors of the image gamut and label them
-    # for i, color in enumerate(lab_FL_red_colors):
-    #     ax.scatter(color[1], color[2], color[0], s=10, label=color_list[i], c=color_list[i])
-    #     ax.text(color[1], color[2], color[0], '(255, 0, 0)', fontsize=4)
+    #     ax.text(color[1], color[2], color[0], color_list[i])
     
+    # Plot the dominant color
+    ax.scatter(dominant_color[1], dominant_color[2], dominant_color[0], s=50, c='black', label='Dominant color')
+
+    # Plot the selected pixels
+    ax.scatter(selected_pixels_lab[:, 1], selected_pixels_lab[:, 2], selected_pixels_lab[:, 0], s=0.5, c='blue', label='Selected pixels')
+
     # Label the axes
-    # ax.set_xlabel('a*')
-    # ax.set_ylabel('b*')
-    # ax.set_zlabel('L*')
+    ax.set_xlabel('a*')
+    ax.set_ylabel('b*')
+    ax.set_zlabel('L*')
     
-    # plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
-    # plt.show()
+    plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
+    plt.show()
 
 def interpolate_color_for_color(FL, tri, values):
     return interpolate_color(tri, values, FL)
@@ -258,7 +254,6 @@ def find_FL_with_mean(image_path, data_file_path):
     # Log the processing image path and the name of the excel file
     logging.info(f"Processing image: {image_path}")
     logging.info(f"Excel file: {data_file_path}")
-    logging.info("Processing phase 1: Matching the best existing FL setting for each pixel in the image")
 
     # Read the color measurement data from the file
     front_lights = read_color_measurement_data_combined(data_file_path)
@@ -273,32 +268,50 @@ def find_FL_with_mean(image_path, data_file_path):
     image_lab = cv2.cvtColor(image, cv2.COLOR_BGR2Lab)
     all_pixels_lab = image_lab.reshape(-1, 3)
 
-        # Downsample the image to 1/4 of the original size
+    # Downsample the image to 1/4 of the original size
     height, width = image.shape[:2]
     downsampled_pixels_lab = []
     for i in range(0, height * width // 4, 4):
-        max_L = max(all_pixels_lab[i][0], all_pixels_lab[i + 1][0], all_pixels_lab[i + 2][0], all_pixels_lab[i + 3][0])
+        max_L = max(all_pixels_lab[i][0], all_pixels_lab[i + 1][0], all_pixels_lab[i + 2][0], all_pixels_lab[i + 3][0]) / 2
         max_a = max(all_pixels_lab[i][1], all_pixels_lab[i + 1][1], all_pixels_lab[i + 2][1], all_pixels_lab[i + 3][1])
         max_b = max(all_pixels_lab[i][2], all_pixels_lab[i + 1][2], all_pixels_lab[i + 2][2], all_pixels_lab[i + 3][2])
         downsampled_pixels_lab.append((max_L, max_a, max_b))
 
     logging.info(f"Size of downsampled pixels: {len(downsampled_pixels_lab)}")
 
+    # Sort the downsampled pixels by absolute L*, a*, b* values
+    downsampled_pixels_lab = np.array(downsampled_pixels_lab)
+
+    # Calculate the Euclidean distance from (0, 0, 0)
+    distances = np.sqrt(np.sum(downsampled_pixels_lab**2, axis=1))
+
+    # Sort the array based on the calculated distances
+    sorted_indices = np.argsort(distances)  # This gives indices that would sort the array
+    sorted_pixels_lab = downsampled_pixels_lab[sorted_indices]
+
+    # Select the 10% of the pixels with the highest distances
+    top_10_percent_idx = int(len(sorted_pixels_lab) * 0.9)  # Index to start the top 10%
+    selected_pixels_lab = sorted_pixels_lab[top_10_percent_idx:]
+
+    # logging.info(f"Size of selected pixels after sorting by distance: {len(selected_pixels_lab)}")
+    
     # Choose a color as the color representing the image
     # By finding the mean of each L* a* b* channel of every pixels in the image
-    # mean_L = np.mean(downsampled_pixels_lab[:, 0])
-    # mean_a = np.mean(downsampled_pixels_lab[:, 1])
-    # mean_b = np.mean(downsampled_pixels_lab[:, 2])
+    # mean_L = np.mean(selected_pixels_lab[:, 0])
+    # mean_a = np.mean(selected_pixels_lab[:, 1])
+    # mean_b = np.mean(selected_pixels_lab[:, 2])
     # dominant_color = (mean_L, mean_a, mean_b)
     # logging.info(f"Mean L: {mean_L}, Mean a: {mean_a}, Mean b: {mean_b}")
 
-    # Finding the centroid of the image gamut found by the convex hull
-    image_hull = ConvexHull(downsampled_pixels_lab)
+    # # Finding the centroid of the image gamut found by the convex hull
+    image_hull = ConvexHull(selected_pixels_lab)
     image_centroid = np.mean(image_hull.points[image_hull.vertices], axis=0)
     logging.info(f"Centroid of the image gamut: {image_centroid}")
 
     # Choose the centroid of the image gamut as the dominant color
     dominant_color = (image_centroid[0], image_centroid[1], image_centroid[2])
+
+    print(dominant_color[0], dominant_color[1], dominant_color[2])
 
     # Generate all possible predicted colors just once
     color_list = ['red', 'green', 'blue', 'cyan', 'magenta', 'yellow', 'white', 'black']
@@ -316,12 +329,18 @@ def find_FL_with_mean(image_path, data_file_path):
 
     pool.close()
     pool.join()
-    # print('interpolated_FL_per_color: ', interpolated_FL_per_color)
-    # Draw a 3d plot of the front lights combination
+
+    # # Draw a 3d plot of the front lights combination
     # allFLs = all_interpolated_FL[color_list[0]]
     # plot_interpolating_FL_combinations(allFLs)
 
     logging.info(f"Size of interpolated_FL_per_color: {len(all_interpolated_FL[color_list[0]])}")
+
+    # Record all of the primaries under every FL setting and convert them to Lab color space
+    all_FLs = []
+    for color in color_list:
+        for FL in all_interpolated_FL[color].keys():
+            all_FLs.append(all_interpolated_FL[color][FL])
 
     # Initialize the best_FL_count dictionary
     best_FL_count = {}
@@ -333,10 +352,21 @@ def find_FL_with_mean(image_path, data_file_path):
     best_FL, _ = find_best_FL(all_interpolated_FL, dominant_color)
     best_FL_count[str(best_FL)] += 1
 
+    print(best_FL[0], best_FL[1], best_FL[2])
+
     # Record the primaries under the best matching FL
     primaries_best_FL = []
+    R_FL = []
+    G_FL = []
+    B_FL = []
     for i in range(0, 8, 1):
         primaries_best_FL.append(all_interpolated_FL[color_list[i]][best_FL])
+        R_FL.append(all_interpolated_FL[color_list[i]][(255, 0, 0)])
+        G_FL.append(all_interpolated_FL[color_list[i]][(0, 255, 0)])
+        B_FL.append(all_interpolated_FL[color_list[i]][(0, 0, 255)])
+
+    # Plot the image and FL gamut in 3D
+    plot_image_and_FL_gamut(downsampled_pixels_lab, primaries_best_FL, dominant_color, selected_pixels_lab, all_FLs, G_FL, R_FL, B_FL)
 
     # Convert the primaries to Lab color space
     primaries_best_FL = np.array(primaries_best_FL)
