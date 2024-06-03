@@ -130,12 +130,12 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     # all_FLs_hull = ConvexHull(all_FLs)
 
 
-    # Plot the vertices of the image color gamut convex hull
-    for simplex in image_hull.simplices:
-        ax.plot(pixels_lab[simplex, 1], pixels_lab[simplex, 2], pixels_lab[simplex, 0], color='orange', linewidth=0.5)
+    # # Plot the vertices of the image color gamut convex hull
+    # for simplex in image_hull.simplices:
+    #     ax.plot(pixels_lab[simplex, 1], pixels_lab[simplex, 2], pixels_lab[simplex, 0], color='orange', linewidth=0.5)
     
-    # Scatter the colors of the image
-    ax.scatter(pixels_lab[:,1], pixels_lab[:,2], pixels_lab[:,0], s=0.005, c='orange')
+    # # Scatter the colors of the image
+    # ax.scatter(pixels_lab[:,1], pixels_lab[:,2], pixels_lab[:,0], s=0.005, c='orange')
     
     # Convert the colors to LAB color space
     lab_FL_colors = []
@@ -176,17 +176,6 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     for simplex in FL_hull.simplices:
         ax.plot(lab_FL_colors[simplex, 1], lab_FL_colors[simplex, 2], lab_FL_colors[simplex, 0], color='red', linewidth=0.8, label='FL gamut')
 
-    # Plot the vertices of the R_FL color gamut convex hull
-    for simplex in r_hull.simplices:
-        ax.plot(lab_FL_R[simplex, 1], lab_FL_R[simplex, 2], lab_FL_R[simplex, 0], color='red', linewidth=0.8, label='(255, 0, 0)')
-    
-    # Plot the vertices of the G_FL color gamut convex hull
-    for simplex in g_hull.simplices:
-        ax.plot(lab_FL_G[simplex, 1], lab_FL_G[simplex, 2], lab_FL_G[simplex, 0], color='green', linewidth=0.8, label='(0, 255, 0)')
-
-    # Plot the vertices of the B_FL color gamut convex hull
-    for simplex in b_hull.simplices:
-        ax.plot(lab_FL_B[simplex, 1], lab_FL_B[simplex, 2], lab_FL_B[simplex, 0], color='blue', linewidth=0.8, label='(0, 0, 255)')
 
     # Plot the vertices of the FL color gamut convex hull
     # for simplex in all_FLs_hull.simplices:
@@ -209,8 +198,46 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     ax.set_ylabel('b*')
     ax.set_zlabel('L*')
     
+    # Set the axis thicker
+    ax.xaxis.set_tick_params(width=2)
+    ax.yaxis.set_tick_params(width=2)
+    ax.zaxis.set_tick_params(width=2)
+
+    # Set the label of the axis thicker
+    ax.xaxis.label.set_size(15)
+    ax.yaxis.label.set_size(15)
+    ax.zaxis.label.set_size(15)
+    ax.xaxis.label.set_weight('bold')
+    ax.yaxis.label.set_weight('bold')
+    ax.zaxis.label.set_weight('bold')
+
+    # Set the tick size
+    ax.tick_params(axis='both', which='major', labelsize=15, tick1On=True, tick2On=True, label1On=True, direction='in', width=10, length=10)
+    ax.tick_params(axis='both', which='minor', width=2, length=5)
+
+    # Set the background color of the plot
+    bgclr = (0.9, 0.9, 0.9)
+    ax.xaxis._axinfo['grid'].update(color = bgclr)
+    ax.yaxis._axinfo['grid'].update(color = bgclr)
+    ax.zaxis._axinfo['grid'].update(color = bgclr)
+
+    ax.xaxis.pane.fill = False
+    ax.yaxis.pane.fill = False
+    ax.zaxis.pane.fill = False
+
+    ax.xaxis.pane.set_edgecolor('w')
+    ax.yaxis.pane.set_edgecolor('w')
+    ax.zaxis.pane.set_edgecolor('w')
+    
+    # Set the axis line width
+    ax.xaxis.line.set_lw(2)
+    ax.yaxis.line.set_lw(2)
+    ax.zaxis.line.set_lw(2)
+    
+
     plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
     plt.show()
+
 
 def interpolate_color_for_color(FL, tri, values):
     return interpolate_color(tri, values, FL)
