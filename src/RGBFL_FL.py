@@ -193,15 +193,11 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     # Plot the selected pixels
     ax.scatter(selected_pixels_lab[:, 1], selected_pixels_lab[:, 2], selected_pixels_lab[:, 0], s=0.5, c='blue', label='Selected pixels')
 
-    # Label the axes
-    ax.set_xlabel('a*')
-    ax.set_ylabel('b*')
-    ax.set_zlabel('L*')
     
     # Set the axis thicker
-    ax.xaxis.set_tick_params(width=2)
-    ax.yaxis.set_tick_params(width=2)
-    ax.zaxis.set_tick_params(width=2)
+    ax.xaxis.set_tick_params(width=4)
+    ax.yaxis.set_tick_params(width=4)
+    ax.zaxis.set_tick_params(width=4)
 
     # Set the label of the axis thicker
     ax.xaxis.label.set_size(15)
@@ -210,10 +206,6 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     ax.xaxis.label.set_weight('bold')
     ax.yaxis.label.set_weight('bold')
     ax.zaxis.label.set_weight('bold')
-
-    # Set the tick size
-    ax.tick_params(axis='both', which='major', labelsize=15, tick1On=True, tick2On=True, label1On=True, direction='in', width=10, length=10)
-    ax.tick_params(axis='both', which='minor', width=2, length=5)
 
     # Set the background color of the plot
     bgclr = (0.9, 0.9, 0.9)
@@ -230,12 +222,18 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     ax.zaxis.pane.set_edgecolor('w')
     
     # Set the axis line width
-    ax.xaxis.line.set_lw(2)
-    ax.yaxis.line.set_lw(2)
-    ax.zaxis.line.set_lw(2)
-    
+    ax.xaxis.line.set_lw(4)
+    ax.yaxis.line.set_lw(4)
+    ax.zaxis.line.set_lw(4)
 
-    plt.title('3D Convex Hull of Image and FL Color Gamut in LAB Space')
+    ax.tick_params(axis='both', which='major', labelsize=20, width=3)
+    ax.tick_params(axis='both', which='minor', labelsize=15, width=2)
+
+    ax.spines['bottom'].set_linewidth(2)
+    ax.spines['top'].set_linewidth(2)
+    ax.spines['right'].set_linewidth(2)
+    ax.spines['left'].set_linewidth(2)
+    
     plt.show()
 
 
