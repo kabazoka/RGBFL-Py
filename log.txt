@@ -238,3 +238,124 @@
 2024-06-04 13:00:31,795 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
 2024-06-04 13:00:31,865 - INFO - Generating all possible predicted colors
 2024-06-04 13:00:35,617 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-03 17:16:26,395 - INFO - Processing image: input/image/kodim01.png
+2024-09-03 17:16:26,396 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:16:26,931 - INFO - Size of downsampled pixels: 24576
+2024-09-03 17:16:26,946 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-03 17:16:27,099 - INFO - Generating all possible predicted colors
+2024-09-03 17:16:46,409 - INFO - Processing image: input/image/kodim09.png
+2024-09-03 17:16:46,409 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:16:46,832 - INFO - Size of downsampled pixels: 24576
+2024-09-03 17:16:46,848 - INFO - Centroid of the image gamut: [ 35.26367188   7.08515625  13.66914063]
+2024-09-03 17:16:47,009 - INFO - Generating all possible predicted colors
+2024-09-03 17:19:13,040 - INFO - Processing image: input/image/kodim09.png
+2024-09-03 17:19:13,041 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:19:13,468 - INFO - Size of downsampled pixels: 24576
+2024-09-03 17:19:13,480 - INFO - Centroid of the image gamut: [ 35.26367188   7.08515625  13.66914063]
+2024-09-03 17:19:13,633 - INFO - Generating all possible predicted colors
+2024-09-03 17:20:11,031 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-03 17:21:35,958 - INFO - Processing image: input/image/kodim09.png
+2024-09-03 17:21:35,959 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:21:36,371 - INFO - Size of downsampled pixels: 24576
+2024-09-03 17:21:36,384 - INFO - Centroid of the image gamut: [ 35.26367188   7.08515625  13.66914063]
+2024-09-03 17:21:36,526 - INFO - Generating all possible predicted colors
+2024-09-03 17:22:15,979 - INFO - Processing image: input/image/test.jpg
+2024-09-03 17:22:15,979 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:22:16,326 - INFO - Size of downsampled pixels: 15000
+2024-09-03 17:22:16,335 - INFO - Centroid of the image gamut: [ 20.44132778  20.10267857 -56.2578125 ]
+2024-09-03 17:22:16,481 - INFO - Generating all possible predicted colors
+2024-09-03 17:23:14,226 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-03 17:23:42,979 - INFO - Processing image: input/image/kodim09.jpg
+2024-09-03 17:23:42,979 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:23:52,868 - INFO - Processing image: input/image/kodim09.png
+2024-09-03 17:23:52,868 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:23:53,293 - INFO - Size of downsampled pixels: 24576
+2024-09-03 17:23:53,309 - INFO - Centroid of the image gamut: [ 35.26367188   7.08515625  13.66914063]
+2024-09-03 17:23:53,469 - INFO - Generating all possible predicted colors
+2024-09-03 17:24:50,343 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-03 17:26:06,904 - INFO - Processing image: input/image/test.jpg
+2024-09-03 17:26:06,904 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-03 17:26:07,280 - INFO - Size of downsampled pixels: 15000
+2024-09-03 17:26:07,289 - INFO - Centroid of the image gamut: [ 20.44132778  20.10267857 -56.2578125 ]
+2024-09-03 17:26:07,436 - INFO - Generating all possible predicted colors
+2024-09-03 17:27:05,690 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:29:42,564 - INFO - Processing image: input/image/test.jpg
+2024-09-26 10:29:42,564 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:29:43,084 - INFO - Size of downsampled pixels: 15000
+2024-09-26 10:29:43,094 - INFO - Centroid of the image gamut: [ 20.44132778  20.10267857 -56.2578125 ]
+2024-09-26 10:29:43,238 - INFO - Generating all possible predicted colors
+2024-09-26 10:30:43,986 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:33:25,272 - INFO - Processing image: input/image/kodim01.jpg
+2024-09-26 10:33:25,272 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:33:31,938 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 10:33:31,938 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:33:32,395 - INFO - Size of downsampled pixels: 24576
+2024-09-26 10:33:32,408 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 10:33:32,542 - INFO - Generating all possible predicted colors
+2024-09-26 10:34:36,395 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:37:13,436 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 10:37:13,437 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:37:13,988 - INFO - Size of downsampled pixels: 24576
+2024-09-26 10:37:14,006 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 10:37:14,158 - INFO - Generating all possible predicted colors
+2024-09-26 10:38:19,148 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:39:24,554 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 10:39:24,555 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:39:25,085 - INFO - Size of downsampled pixels: 24576
+2024-09-26 10:39:25,101 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 10:39:25,258 - INFO - Generating all possible predicted colors
+2024-09-26 10:40:29,606 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:47:04,441 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 10:47:04,442 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:47:04,998 - INFO - Size of downsampled pixels: 24576
+2024-09-26 10:47:05,013 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 10:47:05,186 - INFO - Generating all possible predicted colors
+2024-09-26 10:48:06,298 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:48:41,895 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 10:48:41,895 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:48:42,525 - INFO - Size of downsampled pixels: 24576
+2024-09-26 10:48:42,542 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 10:48:42,679 - INFO - Generating all possible predicted colors
+2024-09-26 10:49:43,267 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 10:50:44,360 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 10:50:44,361 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 10:50:44,834 - INFO - Size of downsampled pixels: 24576
+2024-09-26 10:50:44,848 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 10:50:44,979 - INFO - Generating all possible predicted colors
+2024-09-26 10:51:46,155 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 20:23:47,824 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 20:23:47,824 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 20:23:48,350 - INFO - Size of downsampled pixels: 24576
+2024-09-26 20:23:48,364 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 20:23:48,485 - INFO - Generating all possible predicted colors
+2024-09-26 20:24:41,430 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 20:26:06,949 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 20:26:06,949 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 20:26:07,343 - INFO - Size of downsampled pixels: 24576
+2024-09-26 20:26:07,356 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 20:26:07,459 - INFO - Generating all possible predicted colors
+2024-09-26 20:27:00,634 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 20:28:52,734 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 20:28:52,734 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 20:28:53,120 - INFO - Size of downsampled pixels: 24576
+2024-09-26 20:28:53,132 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 20:28:53,235 - INFO - Generating all possible predicted colors
+2024-09-26 20:29:45,269 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 20:32:50,245 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 20:32:50,245 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 20:32:50,637 - INFO - Size of downsampled pixels: 24576
+2024-09-26 20:32:50,650 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 20:32:50,755 - INFO - Generating all possible predicted colors
+2024-09-26 20:33:44,797 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 20:34:40,752 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 20:34:40,753 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 20:34:41,148 - INFO - Size of downsampled pixels: 24576
+2024-09-26 20:34:41,161 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 20:34:41,264 - INFO - Generating all possible predicted colors
+2024-09-26 20:35:35,013 - INFO - Size of interpolated_FL_per_color: 7957
+2024-09-26 20:37:26,679 - INFO - Processing image: input/image/kodim01.png
+2024-09-26 20:37:26,680 - INFO - Excel file: input/excel/i1_8colors_27FL_v1.xlsx
+2024-09-26 20:37:27,088 - INFO - Size of downsampled pixels: 24576
+2024-09-26 20:37:27,100 - INFO - Centroid of the image gamut: [ 34.54601581  11.37770433  22.3061899 ]
+2024-09-26 20:37:27,210 - INFO - Generating all possible predicted colors
+2024-09-26 20:38:20,986 - INFO - Size of interpolated_FL_per_color: 7957

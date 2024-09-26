@@ -115,8 +115,9 @@ def plot_interpolating_FL_combinations(allFLs):
 
 def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selected_pixels_lab, all_FLs, G_FL, R_FL, B_FL):
     # Create a 3D plot
-    fig = plt.figure()
+    fig = plt.figure(figsize=(16, 16))
     ax = fig.add_subplot(111, projection='3d')
+    
     
     # Calculate the convex hull of the LAB colors
     image_hull = ConvexHull(pixels_lab)
@@ -130,12 +131,12 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     # all_FLs_hull = ConvexHull(all_FLs)
 
 
-    # # Plot the vertices of the image color gamut convex hull
-    # for simplex in image_hull.simplices:
-    #     ax.plot(pixels_lab[simplex, 1], pixels_lab[simplex, 2], pixels_lab[simplex, 0], color='orange', linewidth=0.5)
+    # Plot the vertices of the image color gamut convex hull
+    for simplex in image_hull.simplices:
+        ax.plot(pixels_lab[simplex, 1], pixels_lab[simplex, 2], pixels_lab[simplex, 0], color='orange', linewidth=1.2)
     
-    # # Scatter the colors of the image
-    # ax.scatter(pixels_lab[:,1], pixels_lab[:,2], pixels_lab[:,0], s=0.005, c='orange')
+    # Scatter the colors of the image
+    ax.scatter(pixels_lab[:,1], pixels_lab[:,2], pixels_lab[:,0], s=0.01, c='orange')
     
     # Convert the colors to LAB color space
     lab_FL_colors = []
@@ -173,11 +174,6 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     # lab_all_FLs = np.array(lab_all_FLs)
 
     # Plot the vertices of the FL color gamut convex hull
-    for simplex in FL_hull.simplices:
-        ax.plot(lab_FL_colors[simplex, 1], lab_FL_colors[simplex, 2], lab_FL_colors[simplex, 0], color='red', linewidth=0.8, label='FL gamut')
-
-
-    # Plot the vertices of the FL color gamut convex hull
     # for simplex in all_FLs_hull.simplices:
     #     ax.plot(lab_all_FLs[simplex, 1], lab_all_FLs[simplex, 2], lab_all_FLs[simplex, 0], color='blue', linewidth=0.8, label='All FL gamut')
 
@@ -187,11 +183,15 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     #     ax.scatter(color[1], color[2], color[0], s=10, label=color_list[i], c=color_list[i])
     #     ax.text(color[1], color[2], color[0], color_list[i])
     
-    # Plot the dominant color
-    ax.scatter(dominant_color[1], dominant_color[2], dominant_color[0], s=50, c='black', label='Dominant color')
+    # # Plot the vertices of the FL color gamut convex hull
+    # for simplex in FL_hull.simplices:
+    #     ax.plot(lab_FL_colors[simplex, 1], lab_FL_colors[simplex, 2], lab_FL_colors[simplex, 0], color='red', linewidth=0.8, label='FL gamut')
 
-    # Plot the selected pixels
-    ax.scatter(selected_pixels_lab[:, 1], selected_pixels_lab[:, 2], selected_pixels_lab[:, 0], s=0.5, c='blue', label='Selected pixels')
+    # # Plot the dominant color
+    # ax.scatter(dominant_color[1], dominant_color[2], dominant_color[0], s=50, c='green', label='Dominant color')
+
+    # # Plot the selected pixels
+    # ax.scatter(selected_pixels_lab[:, 1], selected_pixels_lab[:, 2], selected_pixels_lab[:, 0], s=10, c='blue', label='Selected pixels')
 
     
     # Set the axis thicker
@@ -234,6 +234,13 @@ def plot_image_and_FL_gamut(pixels_lab, primaries_best_FL, dominant_color, selec
     ax.spines['right'].set_linewidth(2)
     ax.spines['left'].set_linewidth(2)
     
+    # set the name of the axis
+    ax.set_xlabel('a*', fontsize=20, fontweight='bold', labelpad=20)
+    ax.set_ylabel('b*', fontsize=20, fontweight='bold', labelpad=20)
+    ax.set_zlabel('L*', fontsize=20, fontweight='bold', labelpad=20)
+
+    #
+
     plt.show()
 
 
